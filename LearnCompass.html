@@ -389,35 +389,34 @@ a{color:inherit;text-decoration:none;}
 <header class="header">
   <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer;">Learn<span>Compass</span></div>
   <div class="header-right">
-    <button class="back-btn" id="backBtn" onclick="showHome()">← All Courses</button>
+    <button class="back-btn" id="backBtn" onclick="showHome()" style="display:none;">← All Courses</button>
     <span id="userGreeting" style="font-size:13px;color:var(--muted);display:none;"></span>
-    <button class="explore-btn" onclick="showHome()" id="exploreBtn">Explore Courses</button>
+    <button class="explore-btn" id="exploreBtn" onclick="window.location.href='index.html'">🏠 Home</button>
     <button class="signout-btn" id="signoutBtn" onclick="signOutApp()" style="display:none;">Sign out</button>
   </div>
 </header>
 
 <!-- HOME PAGE -->
 <div class="page active" id="homePage">
-  <section class="hero">
-    <div class="hero-eye">Your Learning Navigator</div>
-    <h1>Stop wondering.<br><em>Start learning.</em></h1>
-    <p>Pick any course. Get a complete roadmap, syllabus, free resources, practice platforms, study plan, interview prep and project ideas — all in one place.</p>
+  <section class="hero" style="padding:36px 32px 24px;">
+    <div class="hero-eye">Choose Your Learning Path</div>
+    <h1 style="font-size:clamp(26px,4vw,40px);margin-bottom:14px;">Pick a course.<br><em>Start your journey.</em></h1>
     <div class="search-wrap">
       <input class="search-input" type="text" id="searchInput" placeholder="Search courses, topics or skills..." oninput="filterCourses(this.value)"/>
       <button class="search-btn" onclick="filterCourses(document.getElementById('searchInput').value)">→</button>
     </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-num" style="color:#a78bfa">9</div><div class="stat-lbl">Courses</div></div>
+    <div class="stats-row" style="margin-top:20px;">
+      <div class="stat"><div class="stat-num" style="color:#a78bfa">12</div><div class="stat-lbl">Courses</div></div>
       <div class="stat"><div class="stat-num" style="color:#67e8f9">120+</div><div class="stat-lbl">Free Resources</div></div>
       <div class="stat"><div class="stat-num" style="color:#6ee7b7">24</div><div class="stat-lbl">Practice Platforms</div></div>
       <div class="stat"><div class="stat-num" style="color:#fcd34d">8</div><div class="stat-lbl">Tabs Per Course</div></div>
     </div>
   </section>
-  <section class="section">
-    <div class="sec-label">Choose Your Path</div>
+  <section class="section" style="padding-top:0;">
+    <div class="sec-label">All Courses</div>
     <div class="course-grid" id="courseGrid"></div>
   </section>
-  <div class="page-footer">Built with ❤ for learners everywhere &nbsp;·&nbsp; LearnCompass 2025</div>
+  <div class="page-footer">Built with ❤ for learners everywhere &nbsp;·&nbsp; LearnCompass 2025 · Made by Hemanth Naidu Latchireddi</div>
 </div>
 
 <!-- DETAIL PAGE -->
@@ -490,12 +489,12 @@ const COURSES = [
     {q:'What is a cohort analysis?',a:'Cohort analysis groups users by a shared characteristic at a point in time (usually acquisition date) and tracks their behaviour over time. It reveals retention patterns — e.g. do users acquired in January 2024 retain better than those from June 2024? It\'s foundational for understanding product health and LTV.'},
   ],
   projects:[
-    {title:'Sales Performance Dashboard',desc:'Analyse a retail sales CSV. Find top products, worst regions, seasonal trends. Build a Tableau dashboard with filters.',tags:['Excel','Tableau','SQL'],diff:'easy'},
-    {title:'Customer Churn Analysis',desc:'Predict which customers are likely to churn using EDA and logistic regression on a telecom dataset from Kaggle.',tags:['Python','Pandas','Seaborn'],diff:'medium'},
-    {title:'COVID-19 Data Tracker',desc:'Pull data from Our World in Data API. Visualise case trends, vaccination rates, and deaths by country over time.',tags:['Python','Matplotlib','API'],diff:'medium'},
-    {title:'E-Commerce Funnel Analysis',desc:'Given clickstream data, analyse add-to-cart rate, checkout rate and drop-off points. Build a SQL + Power BI report.',tags:['SQL','Power BI','DAX'],diff:'medium'},
-    {title:'Spotify Music Trends',desc:'Use the Spotify public dataset on Kaggle. What makes a song popular? EDA + correlation analysis + visualisations.',tags:['Python','Pandas','Seaborn'],diff:'easy'},
-    {title:'A/B Test Analysis',desc:'Given two variants of a landing page and conversion data, run a proper t-test to determine statistical significance.',tags:['Python','Statistics','Scipy'],diff:'hard'},
+    {title:'Sales Performance Dashboard',desc:'Analyse a retail sales CSV. Find top products, worst regions, seasonal trends. Build a Tableau dashboard with filters.',tags:['Excel','Tableau','SQL'],diff:'easy',github:'https://github.com/topics/tableau-dashboard',tutorial:'https://public.tableau.com/app/discover'},
+    {title:'Customer Churn Analysis',desc:'Predict which customers are likely to churn using EDA and logistic regression on a telecom dataset from Kaggle.',tags:['Python','Pandas','Seaborn'],diff:'medium',github:'https://github.com/topics/customer-churn-analysis',tutorial:'https://www.kaggle.com/datasets/blastchar/telco-customer-churn'},
+    {title:'COVID-19 Data Tracker',desc:'Pull data from Our World in Data API. Visualise case trends, vaccination rates, and deaths by country over time.',tags:['Python','Matplotlib','API'],diff:'medium',github:'https://github.com/owid/covid-19-data',tutorial:'https://ourworldindata.org/coronavirus'},
+    {title:'E-Commerce Funnel Analysis',desc:'Given clickstream data, analyse add-to-cart rate, checkout rate and drop-off points. Build a SQL + Power BI report.',tags:['SQL','Power BI','DAX'],diff:'medium',github:'https://github.com/topics/funnel-analysis',tutorial:'https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-getting-started'},
+    {title:'Spotify Music Trends',desc:'Use the Spotify public dataset on Kaggle. What makes a song popular? EDA + correlation analysis + visualisations.',tags:['Python','Pandas','Seaborn'],diff:'easy',github:'https://github.com/topics/spotify-data-analysis',tutorial:'https://www.kaggle.com/datasets/maharshipandya/-spotify-tracks-dataset'},
+    {title:'A/B Test Analysis',desc:'Given two variants of a landing page and conversion data, run a proper t-test to determine statistical significance.',tags:['Python','Statistics','Scipy'],diff:'hard',github:'https://github.com/topics/ab-testing-python',tutorial:'https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html'},
   ],
   planPhases:[
     {name:'Phase 1 — Excel & Statistics',color:'#B5D4F4',dot:'#378ADD',weeks:3,days:[
@@ -641,12 +640,12 @@ const COURSES = [
     {q:'When would you fine-tune an LLM vs using prompting?',a:'Use prompting first — it is cheaper and faster to iterate. Fine-tune when: the task requires a very specific output format that prompting cannot reliably produce, you have thousands of high-quality labelled examples, the base model consistently fails despite good prompts, or you need to reduce inference cost by using a smaller fine-tuned model instead of a large prompted one.'},
   ],
   projects:[
-    {title:'Document Q&A Chatbot',desc:'Build a RAG chatbot that answers questions from a PDF or website. Deploy on Streamlit with a chat UI.',tags:['LangChain','Chroma','Streamlit'],diff:'easy'},
-    {title:'AI Code Reviewer',desc:'Paste code, get a detailed review with bugs found, improvements suggested and corrected code generated.',tags:['OpenAI API','Python','FastAPI'],diff:'medium'},
-    {title:'Multi-Agent Research Assistant',desc:'Agents that browse the web, summarise findings, fact-check each other, and produce a report.',tags:['LangGraph','Tools','AutoGen'],diff:'hard'},
-    {title:'YouTube Video Summariser',desc:'Input a YouTube URL, transcribe with Whisper, chunk and summarise with an LLM, generate key insights.',tags:['Whisper','LangChain','RAG'],diff:'medium'},
-    {title:'Fine-tuned Sentiment Classifier',desc:'Fine-tune a small LLM (Llama 3.2) on a customer review dataset using QLoRA. Compare to zero-shot.',tags:['HuggingFace','LoRA','QLoRA'],diff:'hard'},
-    {title:'Personal AI Assistant with Memory',desc:'Chat assistant that remembers past conversations, has access to your calendar and can search the web.',tags:['LangChain','Memory','Tools'],diff:'medium'},
+    {title:'Document Q&A Chatbot',desc:'Build a RAG chatbot that answers questions from a PDF or website. Deploy on Streamlit with a chat UI.',tags:['LangChain','Chroma','Streamlit'],diff:'easy',github:'https://github.com/topics/rag-chatbot',tutorial:'https://python.langchain.com/docs/tutorials/rag/'},
+    {title:'AI Code Reviewer',desc:'Paste code, get a detailed review with bugs found, improvements suggested and corrected code generated.',tags:['OpenAI API','Python','FastAPI'],diff:'medium',github:'https://github.com/topics/ai-code-review',tutorial:'https://platform.openai.com/docs/quickstart'},
+    {title:'Multi-Agent Research Assistant',desc:'Agents that browse the web, summarise findings, fact-check each other, and produce a report.',tags:['LangGraph','Tools','AutoGen'],diff:'hard',github:'https://github.com/microsoft/autogen',tutorial:'https://langchain-ai.github.io/langgraph/tutorials/multi_agent/'},
+    {title:'YouTube Video Summariser',desc:'Input a YouTube URL, transcribe with Whisper, chunk and summarise with an LLM, generate key insights.',tags:['Whisper','LangChain','RAG'],diff:'medium',github:'https://github.com/topics/youtube-summarizer',tutorial:'https://openai.com/research/whisper'},
+    {title:'Fine-tuned Sentiment Classifier',desc:'Fine-tune a small LLM (Llama 3.2) on a customer review dataset using QLoRA. Compare to zero-shot.',tags:['HuggingFace','LoRA','QLoRA'],diff:'hard',github:'https://github.com/topics/llm-fine-tuning',tutorial:'https://huggingface.co/docs/trl/sft_trainer'},
+    {title:'Personal AI Assistant with Memory',desc:'Chat assistant that remembers past conversations, has access to your calendar and can search the web.',tags:['LangChain','Memory','Tools'],diff:'medium',github:'https://github.com/topics/langchain-memory',tutorial:'https://python.langchain.com/docs/how_to/memory_manager/'},
   ],
   planPhases:[
     {name:'Phase 1 — LLM Fundamentals',color:'#C4B5FD',dot:'#7C3AED',weeks:2,days:[
@@ -785,10 +784,10 @@ const COURSES = [
   ],
   projects:[
     {title:'End-to-End ELT Pipeline',desc:'Ingest data from a public API (e.g. GitHub or weather) → land in S3 → load to BigQuery → transform with dbt → schedule with Airflow.',tags:['Airflow','dbt','BigQuery','S3'],diff:'medium'},
-    {title:'Real-Time Streaming Pipeline',desc:'Produce events to Kafka from a simulated IoT sensor. Consume and aggregate with Flink. Sink to PostgreSQL and visualise.',tags:['Kafka','Flink','PostgreSQL'],diff:'hard'},
+    {title:'Real-Time Streaming Pipeline',desc:'Produce events to Kafka from a simulated IoT sensor. Consume and aggregate with Flink. Sink to PostgreSQL and visualise.',tags:['Kafka','Flink','PostgreSQL'],diff:'hard',github:'https://github.com/topics/kafka-streaming-pipeline',tutorial:'https://kafka.apache.org/quickstart'},
     {title:'Data Quality Framework',desc:'Add Great Expectations checks to an existing pipeline. Alert on failures via Slack. Document data contracts.',tags:['Great Expectations','dbt','Slack API'],diff:'medium'},
-    {title:'NYC Taxi Analytics Platform',desc:'Classic DE project: ingest NYC Taxi data, design a star schema, build dbt models, create a dashboard.',tags:['dbt','BigQuery','Looker Studio'],diff:'easy'},
-    {title:'Lakehouse with Delta Lake',desc:'Build a medallion architecture (Bronze → Silver → Gold) using PySpark and Delta Lake on Databricks.',tags:['Spark','Delta Lake','Databricks'],diff:'hard'},
+    {title:'NYC Taxi Analytics Platform',desc:'Classic DE project: ingest NYC Taxi data, design a star schema, build dbt models, create a dashboard.',tags:['dbt','BigQuery','Looker Studio'],diff:'easy',github:'https://github.com/DataTalksClub/nyc-tlc-data',tutorial:'https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/03-data-warehouse'},
+    {title:'Lakehouse with Delta Lake',desc:'Build a medallion architecture (Bronze → Silver → Gold) using PySpark and Delta Lake on Databricks.',tags:['Spark','Delta Lake','Databricks'],diff:'hard',github:'https://github.com/delta-io/delta',tutorial:'https://docs.delta.io/latest/delta-intro.html'},
     {title:'Data Lineage Tracker',desc:'Instrument a pipeline to automatically document data flow: which tables feed which, column-level lineage.',tags:['OpenLineage','Marquez','dbt'],diff:'hard'},
   ],
   planPhases:[
@@ -944,12 +943,12 @@ const COURSES = [
     {q:'What is CORS and how do you fix a CORS error?',a:'CORS (Cross-Origin Resource Sharing) is a browser security mechanism that blocks requests from one origin to another unless the server explicitly allows it. Fix by adding the correct headers on the server: Access-Control-Allow-Origin (specify the allowed origin), Access-Control-Allow-Methods, and Access-Control-Allow-Headers. In Express, use the cors npm package.'},
   ],
   projects:[
-    {title:'Personal Portfolio Website',desc:'HTML/CSS/JS portfolio showcasing your projects. Responsive, animated, deployed on Netlify or Vercel.',tags:['HTML','CSS','JavaScript'],diff:'easy'},
-    {title:'Weather App',desc:'Fetch from OpenWeatherMap API. Show current weather and 5-day forecast. Geolocation support.',tags:['JavaScript','Fetch API','CSS'],diff:'easy'},
-    {title:'Full-Stack Todo App',desc:'React frontend + Express API + PostgreSQL. CRUD with auth (JWT). Deployed to Vercel + Railway.',tags:['React','Node.js','PostgreSQL'],diff:'medium'},
-    {title:'E-Commerce Store',desc:'Next.js storefront with product listing, cart, Stripe checkout and an admin dashboard.',tags:['Next.js','Stripe','Prisma'],diff:'hard'},
-    {title:'Real-Time Chat App',desc:'WebSocket-based chat using Socket.io. Rooms, online presence, message history in MongoDB.',tags:['Node.js','Socket.io','MongoDB'],diff:'medium'},
-    {title:'GitHub Profile Finder',desc:'Search GitHub users, display their repos, followers, and contribution graph using the GitHub API.',tags:['React','GitHub API','CSS'],diff:'easy'},
+    {title:'Personal Portfolio Website',desc:'HTML/CSS/JS portfolio showcasing your projects. Responsive, animated, deployed on Netlify or Vercel.',tags:['HTML','CSS','JavaScript'],diff:'easy',github:'https://github.com/topics/portfolio-website',tutorial:'https://www.theodinproject.com/lessons/advanced-html-and-css-portfolio-project'},
+    {title:'Weather App',desc:'Fetch from OpenWeatherMap API. Show current weather and 5-day forecast. Geolocation support.',tags:['JavaScript','Fetch API','CSS'],diff:'easy',github:'https://github.com/topics/weather-app-javascript',tutorial:'https://openweathermap.org/api'},
+    {title:'Full-Stack Todo App',desc:'React frontend + Express API + PostgreSQL. CRUD with auth (JWT). Deployed to Vercel + Railway.',tags:['React','Node.js','PostgreSQL'],diff:'medium',github:'https://github.com/topics/todo-app-fullstack',tutorial:'https://fullstackopen.com/en/part3'},
+    {title:'E-Commerce Store',desc:'Next.js storefront with product listing, cart, Stripe checkout and an admin dashboard.',tags:['Next.js','Stripe','Prisma'],diff:'hard',github:'https://github.com/vercel/commerce',tutorial:'https://stripe.com/docs/payments/quickstart'},
+    {title:'Real-Time Chat App',desc:'WebSocket-based chat using Socket.io. Rooms, online presence, message history in MongoDB.',tags:['Node.js','Socket.io','MongoDB'],diff:'medium',github:'https://github.com/topics/chat-app-nodejs-socketio',tutorial:'https://socket.io/docs/v4/tutorial/'},
+    {title:'GitHub Profile Finder',desc:'Search GitHub users, display their repos, followers, and contribution graph using the GitHub API.',tags:['React','GitHub API','CSS'],diff:'easy',github:'https://github.com/topics/github-profile-react',tutorial:'https://docs.github.com/en/rest/users/users'},
   ],
   planPhases:[
     {name:'Phase 1 — HTML & CSS',color:'#FCD34D',dot:'#D97706',weeks:4,days:[
@@ -1111,12 +1110,12 @@ const COURSES = [
     {q:'What is the difference between bagging and boosting?',a:'Bagging (Bootstrap Aggregating): train multiple models independently on random subsets (with replacement), average their predictions. Reduces variance. Random Forest is bagging with decision trees + feature subsampling. Boosting: train models sequentially where each model focuses on the errors of the previous. Reduces bias. XGBoost, LightGBM, CatBoost are boosting methods. Boosting generally achieves better accuracy but is more prone to overfitting.'},
   ],
   projects:[
-    {title:'House Price Prediction',desc:'Kaggle Housing dataset. EDA, feature engineering, Ridge/Lasso/XGBoost. Submission to Kaggle leaderboard.',tags:['Sklearn','XGBoost','Pandas'],diff:'easy'},
-    {title:'Customer Churn Predictor',desc:'Telecom dataset. Binary classification with class imbalance. SMOTE, XGBoost, SHAP explanations.',tags:['Sklearn','SHAP','Imbalanced-learn'],diff:'medium'},
-    {title:'Image Classifier',desc:'Train a CNN on CIFAR-10 or a custom dataset. Use transfer learning with ResNet. Deploy via Gradio.',tags:['PyTorch','CNN','Gradio'],diff:'medium'},
-    {title:'Sentiment Analysis API',desc:'Fine-tune BERT on IMDb reviews. Wrap in a FastAPI endpoint. Deploy to Hugging Face Spaces.',tags:['HuggingFace','FastAPI','BERT'],diff:'hard'},
-    {title:'Movie Recommendation System',desc:'Collaborative filtering with SVD. Content-based filtering with TF-IDF. Hybrid model.',tags:['Sklearn','Scipy','Pandas'],diff:'medium'},
-    {title:'Fraud Detection System',desc:'Highly imbalanced dataset (0.17% fraud). Anomaly detection with Isolation Forest + XGBoost ensemble.',tags:['Sklearn','XGBoost','SHAP'],diff:'hard'},
+    {title:'House Price Prediction',desc:'Kaggle Housing dataset. EDA, feature engineering, Ridge/Lasso/XGBoost. Submission to Kaggle leaderboard.',tags:['Sklearn','XGBoost','Pandas'],diff:'easy',github:'https://github.com/topics/house-price-prediction',tutorial:'https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques'},
+    {title:'Customer Churn Predictor',desc:'Telecom dataset. Binary classification with class imbalance. SMOTE, XGBoost, SHAP explanations.',tags:['Sklearn','SHAP','Imbalanced-learn'],diff:'medium',github:'https://github.com/topics/churn-prediction-machine-learning',tutorial:'https://shap.readthedocs.io/'},
+    {title:'Image Classifier',desc:'Train a CNN on CIFAR-10 or a custom dataset. Use transfer learning with ResNet. Deploy via Gradio.',tags:['PyTorch','CNN','Gradio'],diff:'medium',github:'https://github.com/topics/image-classification-pytorch',tutorial:'https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html'},
+    {title:'Sentiment Analysis API',desc:'Fine-tune BERT on IMDb reviews. Wrap in a FastAPI endpoint. Deploy to Hugging Face Spaces.',tags:['HuggingFace','FastAPI','BERT'],diff:'hard',github:'https://github.com/topics/bert-sentiment-analysis',tutorial:'https://huggingface.co/docs/transformers/training'},
+    {title:'Movie Recommendation System',desc:'Collaborative filtering with SVD. Content-based filtering with TF-IDF. Hybrid model.',tags:['Sklearn','Scipy','Pandas'],diff:'medium',github:'https://github.com/topics/recommendation-system',tutorial:'https://surprise.readthedocs.io/en/stable/getting_started.html'},
+    {title:'Fraud Detection System',desc:'Highly imbalanced dataset (0.17% fraud). Anomaly detection with Isolation Forest + XGBoost ensemble.',tags:['Sklearn','XGBoost','SHAP'],diff:'hard',github:'https://github.com/topics/fraud-detection-machine-learning',tutorial:'https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud'},
   ],
   planPhases:[
     {name:'Phase 1 — Math & Python',color:'#FCA5A5',dot:'#DC2626',weeks:4,days:[
@@ -1268,12 +1267,12 @@ const COURSES = [
     {q:'Explain the difference between RDS Multi-AZ and Read Replicas.',a:'Multi-AZ: synchronous replication to a standby in another AZ. The standby is not accessible — it exists only for automatic failover (typically < 2 minutes). Designed for high availability and DR. Read Replicas: asynchronous replication to one or more read-only instances. Used to scale out read-heavy workloads. Can be in the same region, cross-region, or promoted to standalone. Can be in different AZs (also provides some DR benefit).'},
   ],
   projects:[
-    {title:'3-Tier Web App on AWS',desc:'EC2 web tier + RDS database + S3 static assets. VPC with public/private subnets, ALB, Auto Scaling Group.',tags:['EC2','RDS','S3','VPC'],diff:'medium'},
-    {title:'Serverless API',desc:'Lambda + API Gateway + DynamoDB CRUD API. Deploy with SAM or Serverless Framework. Add CloudWatch logging.',tags:['Lambda','API Gateway','DynamoDB'],diff:'easy'},
-    {title:'Infrastructure as Code',desc:'Provision the 3-tier architecture above using Terraform. Modules for networking, compute, database. Remote state in S3.',tags:['Terraform','AWS','IaC'],diff:'medium'},
-    {title:'Kubernetes Microservices',desc:'Deploy a 3-service app on EKS/GKE. Services communicate via ClusterIP. Ingress with TLS. HPA for auto-scaling.',tags:['Kubernetes','EKS','Helm'],diff:'hard'},
+    {title:'3-Tier Web App on AWS',desc:'EC2 web tier + RDS database + S3 static assets. VPC with public/private subnets, ALB, Auto Scaling Group.',tags:['EC2','RDS','S3','VPC'],diff:'medium',github:'https://github.com/aws-samples/aws-three-tier-web-architecture-workshop',tutorial:'https://aws.amazon.com/getting-started/hands-on/deploy-webapp-eks/'},
+    {title:'Serverless API',desc:'Lambda + API Gateway + DynamoDB CRUD API. Deploy with SAM or Serverless Framework. Add CloudWatch logging.',tags:['Lambda','API Gateway','DynamoDB'],diff:'easy',github:'https://github.com/aws-samples/serverless-patterns',tutorial:'https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started.html'},
+    {title:'Infrastructure as Code',desc:'Provision the 3-tier architecture above using Terraform. Modules for networking, compute, database. Remote state in S3.',tags:['Terraform','AWS','IaC'],diff:'medium',github:'https://github.com/terraform-aws-modules',tutorial:'https://developer.hashicorp.com/terraform/tutorials/aws-get-started'},
+    {title:'Kubernetes Microservices',desc:'Deploy a 3-service app on EKS/GKE. Services communicate via ClusterIP. Ingress with TLS. HPA for auto-scaling.',tags:['Kubernetes','EKS','Helm'],diff:'hard',github:'https://github.com/kubernetes/examples',tutorial:'https://kubernetes.io/docs/tutorials/kubernetes-basics/'},
     {title:'Multi-Region Disaster Recovery',desc:'Primary in us-east-1, replica in eu-west-1. Route 53 failover routing. RDS cross-region read replica, S3 cross-region replication.',tags:['Route 53','RDS','S3'],diff:'hard'},
-    {title:'CI/CD Pipeline',desc:'GitHub Actions workflow: lint → test → build Docker image → push to ECR → deploy to ECS Fargate. Slack notifications.',tags:['GitHub Actions','ECR','ECS'],diff:'medium'},
+    {title:'CI/CD Pipeline',desc:'GitHub Actions workflow: lint → test → build Docker image → push to ECR → deploy to ECS Fargate. Slack notifications.',tags:['GitHub Actions','ECR','ECS'],diff:'medium',github:'https://github.com/actions/starter-workflows',tutorial:'https://docs.github.com/en/actions/use-cases-and-examples/deploying/deploying-to-amazon-elastic-container-service'},
   ],
   planPhases:[
     {name:'Phase 1 — Cloud Fundamentals',color:'#F9A8D4',dot:'#DB2777',weeks:3,days:[
@@ -1365,7 +1364,6 @@ const COURSES = [
     ]},
   ],
 },
-,
 {
   id:'cyber', color:'c-rose', icon:'🔐', accent:'#ef4444',
   title:'Cybersecurity', difficulty:'Intermediate', duration:'5–7 months', hot:true,
@@ -1568,8 +1566,8 @@ const COURSES = [
     {title:'Full CI/CD Pipeline',desc:'GitHub Actions: on push - test, build Docker image, push to ECR, deploy to Kubernetes. Add automatic rollback on failure.',tags:['GitHub Actions','Docker','Kubernetes'],diff:'medium'},
     {title:'Terraform AWS Infrastructure',desc:'Provision VPC + ECS + RDS + ALB + Route53 + CloudFront using Terraform modules. Remote state in S3.',tags:['Terraform','AWS','IaC'],diff:'medium'},
     {title:'Monitoring Stack',desc:'Deploy Prometheus + Grafana on Kubernetes. Write custom exporters. Build RED dashboard. Set up PagerDuty alerts.',tags:['Prometheus','Grafana','AlertManager'],diff:'hard'},
-    {title:'GitOps with ArgoCD',desc:'Set up ArgoCD on EKS. All deployments via Git PRs. Implement app-of-apps pattern for multiple services.',tags:['ArgoCD','GitOps','Kubernetes'],diff:'hard'},
-    {title:'Log Aggregation Platform',desc:'Ship logs from 3 services to ELK. Write detection dashboards. Set up Kibana alerts for error rate spikes.',tags:['ELK Stack','Filebeat','Kibana'],diff:'medium'},
+    {title:'GitOps with ArgoCD',desc:'Set up ArgoCD on EKS. All deployments via Git PRs. Implement app-of-apps pattern for multiple services.',tags:['ArgoCD','GitOps','Kubernetes'],diff:'hard',github:'https://github.com/argoproj/argo-cd',tutorial:'https://argo-cd.readthedocs.io/en/stable/getting_started/'},
+    {title:'Log Aggregation Platform',desc:'Ship logs from 3 services to ELK. Write detection dashboards. Set up Kibana alerts for error rate spikes.',tags:['ELK Stack','Filebeat','Kibana'],diff:'medium',github:'https://github.com/elastic/examples',tutorial:'https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-getting-started.html'},
     {title:'Chaos Engineering Lab',desc:'Install LitmusChaos on Kubernetes. Run pod deletion, network latency and CPU stress experiments. Document resilience.',tags:['LitmusChaos','SRE','Kubernetes'],diff:'hard'},
   ],
   planPhases:[
@@ -1786,7 +1784,6 @@ const COURSES = [
     ]},
   ],
 },
-,
 {
   id:'ai', color:'c-violet', icon:'🤖', accent:'#7c3aed',
   title:'Artificial Intelligence', difficulty:'Intermediate', duration:'5–8 months', hot:true,
