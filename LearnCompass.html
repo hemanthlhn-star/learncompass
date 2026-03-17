@@ -256,16 +256,138 @@ a{color:inherit;text-decoration:none;}
   .dc-task{display:none;}
   .day-cell{min-height:52px;}
   .tab-btn{font-size:12px;padding:8px 8px;}
+  .plan-controls{flex-direction:column;align-items:stretch;}
+  .proj-card{padding:14px;}
 }
+
+/* ── FEEDBACK BUTTON ── */
+.fb-btn{
+  position:fixed;bottom:28px;right:28px;z-index:9999;
+  background:linear-gradient(135deg,#7c3aed,#06b6d4);
+  color:#fff;border:none;border-radius:50px;
+  padding:12px 20px;font-size:13px;font-weight:600;
+  cursor:pointer;font-family:var(--font-body);
+  box-shadow:0 4px 20px rgba(124,58,237,.4);
+  transition:transform .2s,box-shadow .2s;
+  display:flex;align-items:center;gap:7px;
+}
+.fb-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(124,58,237,.5);}
+
+/* ── FEEDBACK MODAL ── */
+.fb-overlay{
+  position:fixed;inset:0;z-index:10000;
+  background:rgba(0,0,0,.6);display:none;
+  align-items:center;justify-content:center;padding:20px;
+}
+.fb-overlay.open{display:flex;}
+.fb-modal{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:20px;padding:28px;width:100%;max-width:440px;
+  animation:slideIn .25s ease;
+}
+.fb-modal h3{font-family:var(--font-head);font-size:20px;font-weight:700;margin-bottom:6px;}
+.fb-modal p{font-size:13px;color:var(--muted);margin-bottom:20px;}
+.fb-stars{display:flex;gap:8px;margin-bottom:16px;}
+.fb-star{font-size:28px;cursor:pointer;transition:transform .15s;opacity:.35;line-height:1;}
+.fb-star.active,.fb-star:hover{opacity:1;transform:scale(1.15);}
+.fb-type-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+.fb-type{padding:8px;border:1px solid var(--border2);border-radius:10px;font-size:12px;
+  font-weight:500;cursor:pointer;text-align:center;color:var(--muted);transition:all .2s;background:var(--bg3);}
+.fb-type.sel{border-color:var(--accent1);color:#a78bfa;background:rgba(124,58,237,.1);}
+.fb-textarea{
+  width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;
+  color:var(--text);font-family:var(--font-body);font-size:13px;padding:12px;
+  resize:none;height:90px;outline:none;transition:border-color .2s;
+}
+.fb-textarea:focus{border-color:#7c3aed;}
+.fb-textarea::placeholder{color:var(--muted);}
+.fb-actions{display:flex;gap:10px;margin-top:14px;}
+.fb-submit{flex:1;padding:11px;border:none;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#06b6d4);
+  color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:opacity .2s;}
+.fb-submit:hover{opacity:.88;}
+.fb-cancel{padding:11px 16px;border:1px solid var(--border2);border-radius:10px;background:transparent;
+  color:var(--muted);font-size:13px;cursor:pointer;font-family:var(--font-body);transition:color .2s;}
+.fb-cancel:hover{color:var(--text);}
+.fb-success{text-align:center;padding:16px 0;}
+.fb-success .fb-emoji{font-size:44px;margin-bottom:10px;}
+.fb-success p{font-size:14px;color:var(--muted);}
+.fb-count{font-size:11px;color:var(--muted);margin-top:8px;}
+
+/* ── IMPROVED STUDY PLAN CUSTOMIZER ── */
+.plan-config{background:var(--bg3);border:1px solid var(--border2);border-radius:14px;padding:18px;margin-bottom:1.2rem;}
+.plan-config-title{font-size:13px;font-weight:500;margin-bottom:12px;color:var(--text);}
+.plan-config-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
+.pcg-item label{font-size:11px;color:var(--muted);display:block;margin-bottom:5px;letter-spacing:.3px;}
+.pcg-item select,.pcg-item input[type=date]{
+  width:100%;font-size:13px;padding:7px 10px;border-radius:8px;
+  border:1px solid var(--border2);background:var(--bg2);color:var(--text);cursor:pointer;
+}
+.plan-estimate{margin-top:12px;padding:10px 12px;border-radius:8px;
+  background:rgba(6,182,212,.08);border:1px solid rgba(6,182,212,.2);
+  font-size:12px;color:#67e8f9;line-height:1.6;}
+
+/* ── IMPROVED INTERVIEW SECTION ── */
+.int-filter{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.int-badge{font-size:12px;padding:6px 14px;border-radius:20px;cursor:pointer;border:1px solid var(--border2);
+  background:var(--bg3);color:var(--muted);transition:all .2s;font-weight:500;}
+.int-badge.active{background:var(--bg2);color:var(--text);border-color:var(--border2);}
+.int-badge.easy.active{background:rgba(16,185,129,.15);color:#6ee7b7;border-color:rgba(16,185,129,.3);}
+.int-badge.med.active{background:rgba(245,158,11,.15);color:#fcd34d;border-color:rgba(245,158,11,.3);}
+.int-badge.hard.active{background:rgba(239,68,68,.15);color:#fca5a5;border-color:rgba(239,68,68,.3);}
+
+/* ── IMPROVED PROJECT CARDS ── */
+.proj-links{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+.proj-link{font-size:11px;padding:4px 10px;border-radius:8px;border:1px solid var(--border2);
+  color:var(--muted);text-decoration:none;transition:all .2s;background:var(--bg2);}
+.proj-link:hover{color:var(--text);border-color:var(--border);background:var(--bg3);}
+.proj-time{font-size:11px;color:var(--muted);margin-top:6px;}
 </style>
 </head>
 <body>
 
 <div class="mesh-bg"></div>
 
+<!-- FEEDBACK BUTTON -->
+<button class="fb-btn" onclick="openFeedback()">
+  <span style="font-size:16px">💬</span> Feedback
+</button>
+
+<!-- FEEDBACK MODAL -->
+<div class="fb-overlay" id="fbOverlay" onclick="if(event.target===this)closeFeedback()">
+  <div class="fb-modal" id="fbModal">
+    <div id="fbForm">
+      <h3>Share your feedback</h3>
+      <p>Help Hemanth improve LearnCompass for everyone.</p>
+      <div class="fb-stars" id="fbStars">
+        <span class="fb-star" onclick="setRating(1)">⭐</span>
+        <span class="fb-star" onclick="setRating(2)">⭐</span>
+        <span class="fb-star" onclick="setRating(3)">⭐</span>
+        <span class="fb-star" onclick="setRating(4)">⭐</span>
+        <span class="fb-star" onclick="setRating(5)">⭐</span>
+      </div>
+      <div class="fb-type-row">
+        <div class="fb-type" onclick="setType(this,'Bug')">🐛 Bug</div>
+        <div class="fb-type" onclick="setType(this,'Suggestion')">💡 Idea</div>
+        <div class="fb-type sel" onclick="setType(this,'General')">💬 General</div>
+      </div>
+      <textarea class="fb-textarea" id="fbText" placeholder="Tell us what you think, what to improve, or any bugs you found..."></textarea>
+      <div class="fb-count" id="fbCount">0 / 500</div>
+      <div class="fb-actions">
+        <button class="fb-cancel" onclick="closeFeedback()">Cancel</button>
+        <button class="fb-submit" onclick="submitFeedback()">Send Feedback →</button>
+      </div>
+    </div>
+    <div class="fb-success" id="fbSuccess" style="display:none">
+      <div class="fb-emoji">🙏</div>
+      <h3 style="margin-bottom:8px">Thank you!</h3>
+      <p>Your feedback has been saved. Hemanth reviews every submission.</p>
+    </div>
+  </div>
+</div>
+
 <!-- HEADER -->
 <header class="header">
-  <div class="logo" onclick="showHome()">Learn<span>Compass</span></div>
+  <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer;">Learn<span>Compass</span></div>
   <div class="header-right">
     <button class="back-btn" id="backBtn" onclick="showHome()">← All Courses</button>
     <span id="userGreeting" style="font-size:13px;color:var(--muted);display:none;"></span>
@@ -1664,6 +1786,424 @@ const COURSES = [
     ]},
   ],
 },
+,
+{
+  id:'ai', color:'c-violet', icon:'🤖', accent:'#7c3aed',
+  title:'Artificial Intelligence', difficulty:'Intermediate', duration:'5–8 months', hot:true,
+  desc:'Search algorithms, knowledge representation, NLP, computer vision, reinforcement learning and AI ethics.',
+  phases:[
+    {label:'Phase 1',title:'AI Foundations',topics:['History of AI','Search Algorithms','A* Search','Problem Solving','CSP'],weeks:3,bg:'rgba(124,58,237,.2)',tc:'#a78bfa'},
+    {label:'Phase 2',title:'Knowledge & Reasoning',topics:['Logic','Bayesian Networks','Expert Systems','Knowledge Graphs','Planning'],weeks:4,bg:'rgba(124,58,237,.35)',tc:'#a78bfa'},
+    {label:'Phase 3',title:'Machine Learning',topics:['Supervised Learning','Unsupervised','Reinforcement Learning','Feature Eng.','Pipelines'],weeks:5,bg:'rgba(124,58,237,.5)',tc:'#c4b5fd'},
+    {label:'Phase 4',title:'Deep Learning & Perception',topics:['Neural Networks','CNNs','RNNs','Transformers','Computer Vision'],weeks:5,bg:'rgba(124,58,237,.65)',tc:'#c4b5fd'},
+    {label:'Phase 5',title:'Applied AI & Ethics',topics:['AI Products','Explainable AI','Bias & Fairness','AI Safety','Deployment'],weeks:4,bg:'rgba(124,58,237,.8)',tc:'#7c3aed'},
+  ],
+  syllabus:[
+    {title:'What is AI?',sub:'History, types, Turing test, narrow vs general AI',detail:'Understand the full spectrum from narrow AI to AGI. Study history from Turing to GPT-4. Differentiate between AI, ML, and deep learning. Explore symbolic AI, statistical AI, and modern neural approaches. Understand current capabilities and limitations.'},
+    {title:'Search & Problem Solving',sub:'BFS, DFS, A*, heuristics, constraint satisfaction',detail:'Uninformed search: BFS, DFS, iterative deepening. Informed search: greedy best-first, A* with admissible heuristics. Local search: hill climbing, simulated annealing, genetic algorithms. Constraint satisfaction problems (CSP) with backtracking and arc consistency.'},
+    {title:'Knowledge Representation',sub:'Logic, ontologies, knowledge graphs, Bayesian networks',detail:'Propositional and first-order logic. Forward and backward chaining inference. Ontologies and knowledge graphs (RDF, OWL). Bayesian networks for probabilistic reasoning. Hidden Markov Models. Expert systems architecture and rule engines.'},
+    {title:'Machine Learning Fundamentals',sub:'Supervised, unsupervised, reinforcement learning',detail:'Regression and classification algorithms. Decision trees, SVMs, random forests, gradient boosting (XGBoost, LightGBM). K-Means, PCA, autoencoders. Reinforcement learning: MDP, Q-learning, policy gradients. Scikit-learn pipelines for reproducible ML.'},
+    {title:'Neural Networks & Deep Learning',sub:'Backpropagation, CNNs, RNNs, attention mechanism',detail:'Perceptrons and multi-layer networks. Backpropagation derivation and intuition. CNN architectures for vision tasks. RNNs and LSTMs for sequences. The attention mechanism and how transformers work. PyTorch implementation from scratch.'},
+    {title:'Natural Language Processing',sub:'Text processing, embeddings, transformers, LLMs',detail:'Text preprocessing: tokenisation, stemming, lemmatisation. TF-IDF, word2vec, GloVe. Transformer architecture deep dive. Fine-tuning BERT and GPT for downstream tasks. NER, sentiment analysis, question answering, summarisation with HuggingFace.'},
+    {title:'Computer Vision',sub:'Image classification, object detection, segmentation',detail:'Image preprocessing and augmentation. CNNs for classification. Transfer learning with ResNet, EfficientNet. Object detection: YOLO, Faster R-CNN. Semantic and instance segmentation. Face recognition systems. OpenCV for image processing.'},
+    {title:'Reinforcement Learning',sub:'MDP, Q-learning, policy gradients, deep RL',detail:'Markov decision processes: states, actions, rewards, policies. Q-learning and temporal difference learning. Deep Q-Networks (DQN). Policy gradient methods: REINFORCE, Actor-Critic, PPO. Applications: game playing, robotics, recommendation systems, trading.'},
+    {title:'Explainable AI & Ethics',sub:'SHAP, LIME, bias detection, fairness, AI safety',detail:'Why black-box AI is a problem in critical domains. SHAP values for global and local explanations. LIME for model-agnostic explanations. Detecting and mitigating algorithmic bias with Fairlearn. AI safety principles and alignment problem. EU AI Act and responsible AI frameworks.'},
+    {title:'AI Product Development',sub:'From research to deployed AI product',detail:'Identifying AI-suitable problems. Data collection strategy. Model selection and evaluation. MLOps: model versioning, monitoring, retraining pipelines. Wrap a model in a FastAPI endpoint. A/B testing AI features. Cost optimisation for inference at scale. Building AI-powered applications.'},
+  ],
+  resources:[
+    {icon:'▶',name:'CS50 AI — Harvard',type:'Free full AI course from Harvard University',badge:'free',url:'https://cs50.harvard.edu/ai/'},
+    {icon:'▶',name:'Andrej Karpathy — Neural Nets',type:'YouTube — build neural nets from scratch',badge:'free',url:'https://www.youtube.com/@AndrejKarpathy'},
+    {icon:'🌐',name:'fast.ai Practical AI',type:'Free top-down deep learning course',badge:'free',url:'https://www.fast.ai/'},
+    {icon:'📘',name:'AI: A Modern Approach',type:'Book by Russell & Norvig — the AI bible',badge:'paid',url:'https://aima.cs.berkeley.edu/'},
+    {icon:'🌐',name:'Google AI Education',type:'Free AI and ML courses from Google',badge:'free',url:'https://ai.google/education/'},
+    {icon:'▶',name:'StatQuest with Josh Starmer',type:'YouTube — clear ML and stats explanations',badge:'free',url:'https://www.youtube.com/@statquest'},
+    {icon:'🌐',name:'DeepLearning.AI Short Courses',type:'Free 1-hour courses on every AI topic',badge:'free',url:'https://www.deeplearning.ai/short-courses/'},
+    {icon:'🌐',name:'Hugging Face Learn',type:'Free NLP and AI model courses',badge:'free',url:'https://huggingface.co/learn'},
+  ],
+  practice:[
+    {icon:'🏆',name:'Kaggle',desc:'AI and ML competitions and datasets',url:'https://www.kaggle.com'},
+    {icon:'📓',name:'Google Colab',desc:'Free GPU notebooks for AI experiments',url:'https://colab.research.google.com'},
+    {icon:'🤗',name:'Hugging Face',desc:'Run and fine-tune open-source AI models',url:'https://huggingface.co'},
+    {icon:'🎮',name:'OpenAI Gymnasium',desc:'RL environments for agent training',url:'https://gymnasium.farama.org'},
+    {icon:'🧪',name:'Papers With Code',desc:'Latest AI research with runnable code',url:'https://paperswithcode.com'},
+    {icon:'🔬',name:'UCI ML Repository',desc:'100s of datasets for AI experiments',url:'https://archive.ics.uci.edu/'},
+  ],
+  timeline:[
+    {label:'AI Foundations',weeks:3,pct:14},{label:'Knowledge + Reasoning',weeks:4,pct:19},
+    {label:'ML Core',weeks:5,pct:24},{label:'Deep Learning',weeks:5,pct:24},{label:'Applied AI',weeks:4,pct:19},
+  ],
+  interviews:[
+    {q:'What is the difference between AI, ML, and deep learning?',a:'AI is the broad field of making machines intelligent. ML is a subset of AI where systems learn from data rather than being explicitly programmed - classification, regression, clustering. Deep learning is a subset of ML using neural networks with many layers (deep = many hidden layers). Not all AI is ML (rule-based expert systems are AI but not ML), and not all ML is deep learning (random forests are ML but not deep learning). Think nested circles: AI contains ML which contains deep learning.',diff:'easy'},
+    {q:'How does the A* search algorithm work?',a:'A* finds the shortest path by combining actual cost from start (g) with an estimated cost to goal (h - the heuristic). At each step it selects the node with lowest f = g + h. The heuristic must be admissible - never overestimate the true cost. A* is complete and optimal when using an admissible heuristic. It degenerates to Dijkstra when h=0 and to greedy best-first when g is ignored. Applications: GPS routing, game pathfinding, robot navigation.',diff:'medium'},
+    {q:'What is the difference between supervised, unsupervised, and reinforcement learning?',a:'Supervised: train on labelled data to predict outputs - regression, classification. Unsupervised: find patterns in unlabelled data - clustering (K-Means), dimensionality reduction (PCA), anomaly detection. Reinforcement: an agent takes actions in an environment to maximise cumulative reward - no labels, only delayed feedback signals. Used for games, robotics, recommendation. Semi-supervised uses a small amount of labelled data with a large amount of unlabelled data.',diff:'easy'},
+    {q:'What is Explainable AI and why does it matter?',a:'XAI makes model predictions understandable to humans. SHAP values show each feature contribution to a prediction. LIME fits a local linear model around any prediction. XAI matters because: regulators require explanations (EU AI Act, GDPR right to explanation), humans need to trust AI decisions in critical domains (medical, legal, credit), and explanations help debug model failures and detect bias. A model with 99% accuracy that cannot be explained cannot be deployed in a regulated industry.',diff:'medium'},
+    {q:'What ethical concerns exist around AI systems?',a:'Key concerns: (1) Algorithmic bias - models trained on biased data perpetuate discrimination. (2) Privacy - AI can re-identify anonymous data. (3) Transparency - black-box decisions in high-stakes contexts. (4) Safety - misaligned objectives causing harm. (5) Job displacement at scale. (6) Deepfakes and misinformation. (7) Concentration of AI power in few companies. Frameworks: EU AI Act (risk-based regulation), IEEE Ethically Aligned Design, Google Responsible AI, Anthropic Constitutional AI.',diff:'medium'},
+    {q:'How does reinforcement learning differ from supervised learning?',a:'In supervised learning the correct answer is provided at every training step. In RL the agent discovers the right actions through trial and error - it only receives a reward signal after actions, not the correct action itself. RL deals with sequential decisions (each action affects the next state), delayed reward (payoff may come much later), and exploration vs exploitation trade-offs. RL is computationally expensive - simulating millions of episodes. AlphaGo, ChatGPT (RLHF), robotic control, and trading systems use RL.',diff:'hard'},
+    {q:'What is a Convolutional Neural Network and how does it work?',a:'A CNN is a neural network designed for grid-structured data (images, audio spectrograms). Key components: Convolutional layers slide learnable filters across the input to detect local patterns (edges, textures) - each filter produces a feature map. Pooling layers (max pool) reduce spatial dimensions. Fully-connected layers at the end for classification. CNNs exploit translation invariance (a cat is a cat regardless of where it appears). Stacking conv layers detects increasingly abstract features: edges → textures → shapes → objects.',diff:'medium'},
+    {q:'Explain the transformer architecture and why it replaced RNNs.',a:'Transformers use self-attention to process all tokens in parallel, comparing each token to every other token to build context-aware representations. RNNs process tokens sequentially, making them slow to train and prone to forgetting long-range dependencies (vanishing gradient). Transformers: O(n²) attention but fully parallelisable (GPU-friendly). Key components: multi-head self-attention, positional encoding (since there is no sequence order), feed-forward layers, layer normalisation. BERT uses encoder-only; GPT uses decoder-only; T5 uses encoder-decoder.',diff:'hard'},
+  ],
+  projects:[
+    {title:'AI Pathfinding Visualiser',desc:'Web visualiser for BFS, DFS, Dijkstra and A* on a grid. Allow walls, different heuristics, show explored nodes in real time.',tags:['JavaScript','A* Search','Algorithms'],diff:'easy',github:'https://github.com/topics/pathfinding-visualizer',tutorial:'https://cs50.harvard.edu/ai/2024/projects/0/degrees/'},
+    {title:'Chess AI with Alpha-Beta Pruning',desc:'Chess engine in Python. Implement minimax with alpha-beta pruning and a basic piece-value evaluation function. Play against it.',tags:['Python','Minimax','Game AI'],diff:'medium',github:'https://github.com/topics/chess-engine-python',tutorial:'https://www.chessprogramming.org/Alpha-Beta'},
+    {title:'Object Detection App',desc:'Use a pre-trained YOLO model to detect objects in uploaded images and live webcam feed. Display bounding boxes and labels.',tags:['YOLO','OpenCV','PyTorch'],diff:'medium',github:'https://github.com/ultralytics/ultralytics',tutorial:'https://docs.ultralytics.com/quickstart/'},
+    {title:'Sentiment Analysis API',desc:'Fine-tune BERT on a review dataset. FastAPI endpoint returning sentiment + confidence. Deploy to Hugging Face Spaces with Gradio UI.',tags:['BERT','HuggingFace','FastAPI'],diff:'medium',github:'https://github.com/topics/sentiment-analysis-bert',tutorial:'https://huggingface.co/docs/transformers/training'},
+    {title:'RL Game Agent',desc:'Train a deep Q-network agent to play CartPole or Atari games using OpenAI Gymnasium and PyTorch. Plot learning curves.',tags:['PyTorch','Gymnasium','DQN'],diff:'hard',github:'https://github.com/topics/deep-q-network',tutorial:'https://gymnasium.farama.org/tutorials/training_agents/'},
+    {title:'AI Bias Audit Tool',desc:'Take a pre-trained classification model. Measure fairness metrics across demographic groups. Generate a bias report with Fairlearn and SHAP.',tags:['Fairlearn','SHAP','Python'],diff:'hard',github:'https://github.com/fairlearn/fairlearn',tutorial:'https://fairlearn.org/v0.9/user_guide/'},
+  ],
+  planPhases:[
+    {name:'Phase 1 — AI Foundations',color:'#C4B5FD',dot:'#7C3AED',weeks:3,days:[
+      {t:'theory',tag:'AI',task:'What is AI? History from Turing to GPT-4'},{t:'practice',tag:'AI',task:'CS50 AI lecture 0: watch + complete exercises'},
+      {t:'theory',tag:'Search',task:'Uninformed search: BFS and DFS with real examples'},{t:'practice',tag:'Search',task:'Implement BFS and DFS from scratch in Python'},
+      {t:'theory',tag:'Search',task:'Informed search: A* algorithm with heuristics'},{t:'project',tag:'Project',task:'Build a maze solver with A* — visualise explored nodes'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Search',task:'Local search: hill climbing, simulated annealing'},{t:'practice',tag:'Search',task:'Solve the 8-queens problem with hill climbing'},
+      {t:'theory',tag:'CSP',task:'Constraint satisfaction: backtracking, arc consistency'},{t:'practice',tag:'CSP',task:'Solve Sudoku as a CSP in Python'},
+      {t:'theory',tag:'Games',task:'Minimax algorithm and alpha-beta pruning'},{t:'project',tag:'Project',task:'Unbeatable tic-tac-toe AI with minimax'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'AI',task:'AI problem formulation: states, actions, goals'},{t:'practice',tag:'AI',task:'CS50 AI: complete project 0 (degrees of separation)'},
+      {t:'project',tag:'Capstone',task:'Phase 1 capstone: pathfinding visualiser web app'},{t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'rest',tag:'Buffer',task:'Buffer: genetic algorithms exploration'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+      {t:'rest',tag:'Buffer',task:'Buffer day'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+    ]},
+    {name:'Phase 2 — Knowledge & Reasoning',color:'#A78BFA',dot:'#6D28D9',weeks:4,days:[
+      {t:'theory',tag:'Logic',task:'Propositional logic: connectives, truth tables, inference'},{t:'practice',tag:'Logic',task:'Write a theorem prover in Python'},
+      {t:'theory',tag:'Logic',task:'First-order logic: predicates, quantifiers, resolution'},{t:'practice',tag:'Logic',task:'CS50 AI: knights and knaves logic puzzle'},
+      {t:'theory',tag:'KG',task:'Knowledge graphs: RDF, OWL, ontologies overview'},{t:'project',tag:'Project',task:'Build a small knowledge graph with NetworkX'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Bayes',task:'Probability basics: conditional probability, Bayes theorem'},{t:'practice',tag:'Bayes',task:'Implement a Naive Bayes spam filter from scratch'},
+      {t:'theory',tag:'Bayes',task:'Bayesian networks: structure, inference, learning'},{t:'practice',tag:'Bayes',task:'Build a Bayesian network for disease diagnosis with pgmpy'},
+      {t:'theory',tag:'HMM',task:'Hidden Markov Models for sequence labelling'},{t:'project',tag:'Project',task:'HMM for part-of-speech tagging'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Expert',task:'Expert systems: rules, inference engine, architecture'},{t:'practice',tag:'Expert',task:'Build a medical diagnosis expert system in Python'},
+      {t:'theory',tag:'Plan',task:'AI planning: STRIPS, forward state-space search'},{t:'practice',tag:'Plan',task:'Solve a logistics planning problem'},
+      {t:'project',tag:'Capstone',task:'Phase 2 capstone: knowledge-based QA system'},{t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'rest',tag:'Buffer',task:'Buffer: causal inference introduction'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+      {t:'rest',tag:'Buffer',task:'Buffer day'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+    ]},
+    {name:'Phase 3 — Machine Learning',color:'#8B5CF6',dot:'#5B21B6',weeks:5,days:[
+      {t:'theory',tag:'ML',task:'ML overview: types, evaluation, bias-variance tradeoff'},{t:'practice',tag:'ML',task:'Titanic dataset: full EDA + baseline logistic regression'},
+      {t:'theory',tag:'ML',task:'Linear and logistic regression: theory + gradient descent'},{t:'practice',tag:'ML',task:'House price prediction with linear regression from scratch'},
+      {t:'theory',tag:'Trees',task:'Decision trees, random forests, gradient boosting'},{t:'project',tag:'Project',task:'XGBoost competition entry on Kaggle'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'SVM',task:'SVMs, KNN, Naive Bayes'},{t:'practice',tag:'SVM',task:'Text classification: Naive Bayes vs SVM comparison'},
+      {t:'theory',tag:'Unsup',task:'K-Means, DBSCAN, PCA, t-SNE'},{t:'practice',tag:'Unsup',task:'Customer segmentation with K-Means + UMAP visualisation'},
+      {t:'theory',tag:'RL',task:'Reinforcement learning: MDP, rewards, Q-learning'},{t:'project',tag:'Project',task:'CartPole agent with Q-learning'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Eval',task:'Cross-validation, ROC-AUC, confusion matrix, F1'},{t:'practice',tag:'Eval',task:'Full evaluation report on an imbalanced dataset'},
+      {t:'theory',tag:'Pipeline',task:'Scikit-learn Pipelines + MLflow experiment tracking'},{t:'practice',tag:'Pipeline',task:'Build a full reproducible ML pipeline with MLflow'},
+      {t:'theory',tag:'Feature',task:'Feature engineering: encoding, scaling, selection'},{t:'project',tag:'Project',task:'Feature engineering pipeline that improves accuracy 10%+'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'project',tag:'Capstone',task:'Phase 3 capstone: full ML system on a real dataset'},{t:'rest',tag:'Rest',task:'Review + document in MLflow'},
+      {t:'rest',tag:'Buffer',task:'Buffer: ensemble methods deep dive'},{t:'rest',tag:'Buffer',task:'Buffer: AutoML exploration'},
+      {t:'rest',tag:'Buffer',task:'Buffer day'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+    ]},
+    {name:'Phase 4 — Deep Learning',color:'#7C3AED',dot:'#4C1D95',weeks:5,days:[
+      {t:'theory',tag:'NN',task:'Neural networks: perceptrons, activations, forward pass'},{t:'practice',tag:'NN',task:'Build a 3-layer NN from scratch in NumPy'},
+      {t:'theory',tag:'NN',task:'Backpropagation: chain rule, gradient flow'},{t:'practice',tag:'NN',task:'Implement backprop from scratch, visualise gradients'},
+      {t:'theory',tag:'PyTorch',task:'PyTorch: tensors, autograd, nn.Module, training loop'},{t:'project',tag:'Project',task:'MNIST classifier in PyTorch: achieve 99%+ accuracy'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'CNN',task:'CNNs: convolution, pooling, feature maps, LeNet to ResNet'},{t:'practice',tag:'CNN',task:'CIFAR-10 image classification with custom CNN'},
+      {t:'theory',tag:'Transfer',task:'Transfer learning: fine-tuning ResNet, EfficientNet'},{t:'practice',tag:'Transfer',task:'Fine-tune ResNet on a custom 5-class dataset'},
+      {t:'theory',tag:'NLP',task:'NLP: tokenisation, word2vec, BERT, transformers'},{t:'project',tag:'Project',task:'Fine-tune BERT for text classification on a real dataset'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'CV',task:'Object detection: YOLO architecture and usage'},{t:'practice',tag:'CV',task:'Run YOLO on custom images, fine-tune on small dataset'},
+      {t:'theory',tag:'RNN',task:'RNNs, LSTMs, GRUs for sequence modelling'},{t:'practice',tag:'RNN',task:'LSTM for time series forecasting'},
+      {t:'project',tag:'Capstone',task:'Phase 4 capstone: image classifier + NLP model deployed'},{t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'rest',tag:'Buffer',task:'Buffer: diffusion models overview'},{t:'rest',tag:'Buffer',task:'Buffer: GANs for image generation'},
+      {t:'rest',tag:'Buffer',task:'Buffer day'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+    ]},
+    {name:'Phase 5 — Applied AI & Ethics',color:'#6D28D9',dot:'#3B0764',weeks:4,days:[
+      {t:'theory',tag:'XAI',task:'Explainable AI: SHAP, LIME, attention visualisation'},{t:'practice',tag:'XAI',task:'Add SHAP explanations to your best model'},
+      {t:'theory',tag:'Ethics',task:'AI bias: types, detection, Fairlearn mitigation'},{t:'practice',tag:'Ethics',task:'Audit a model for demographic bias, generate report'},
+      {t:'theory',tag:'Safety',task:'AI safety: alignment, reward hacking, robustness'},{t:'project',tag:'Project',task:'Red-team your own AI model: find failure modes'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'MLOps',task:'MLOps: model registry, CI/CD, monitoring, drift detection'},{t:'practice',tag:'MLOps',task:'Set up MLflow + GitHub Actions for a model pipeline'},
+      {t:'theory',tag:'Deploy',task:'Deploying AI: FastAPI, Docker, Hugging Face Spaces'},{t:'practice',tag:'Deploy',task:'Deploy your best model as a public Gradio app'},
+      {t:'project',tag:'Capstone',task:'FINAL PROJECT: end-to-end AI product with explainability layer'},{t:'rest',tag:'Rest',task:'Celebrate!'},
+      {t:'project',tag:'Portfolio',task:'GitHub: 3 AI projects with READMEs + live demos'},{t:'practice',tag:'Interview',task:'AI interview prep: 20 questions + system design'},
+      {t:'practice',tag:'Interview',task:'System design: design a recommendation engine at scale'},{t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'rest',tag:'Buffer',task:'Buffer: EU AI Act and responsible AI frameworks'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+      {t:'rest',tag:'Buffer',task:'Buffer day'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+    ]},
+  ],
+},
+{
+  id:'ds', color:'c-cyan', icon:'🔬', accent:'#06b6d4',
+  title:'Data Science', difficulty:'Intermediate', duration:'5–7 months', hot:true,
+  desc:'Statistics, Python, ML, A/B testing, storytelling with data and end-to-end science projects.',
+  phases:[
+    {label:'Phase 1',title:'Statistics & Python',topics:['Probability','Hypothesis Testing','Python','NumPy','Pandas'],weeks:4,bg:'rgba(6,182,212,.2)',tc:'#67e8f9'},
+    {label:'Phase 2',title:'Data Wrangling & EDA',topics:['Pandas Advanced','Data Cleaning','EDA','Feature Engineering','SQL'],weeks:4,bg:'rgba(6,182,212,.35)',tc:'#67e8f9'},
+    {label:'Phase 3',title:'Machine Learning',topics:['Supervised Learning','Model Evaluation','XGBoost','Pipelines','MLflow'],weeks:5,bg:'rgba(6,182,212,.5)',tc:'#22d3ee'},
+    {label:'Phase 4',title:'Advanced Analytics',topics:['Time Series','A/B Testing','Causal Inference','NLP','Recommenders'],weeks:4,bg:'rgba(6,182,212,.65)',tc:'#22d3ee'},
+    {label:'Phase 5',title:'Communication & Career',topics:['Storytelling','Tableau','Power BI','Portfolio','Case Studies'],weeks:4,bg:'rgba(6,182,212,.8)',tc:'#06b6d4'},
+  ],
+  syllabus:[
+    {title:'Statistics for Data Science',sub:'Probability, distributions, hypothesis testing, regression',detail:'Descriptive statistics: mean, median, std dev, skewness, kurtosis. Probability theory: Bayes theorem, conditional probability, law of large numbers. Distributions: normal, binomial, Poisson, t-distribution. Hypothesis testing: t-tests, chi-squared, ANOVA, p-values, Type I/II errors. Confidence intervals and statistical power calculations.'},
+    {title:'Python for Data Science',sub:'NumPy, Pandas, Matplotlib, Seaborn, Jupyter',detail:'NumPy vectorised operations: broadcasting, linear algebra, random sampling. Pandas: DataFrames, indexing, groupby, merge, pivot, apply. Matplotlib for publication-quality charts. Seaborn for statistical visualisations. Jupyter notebook workflow, magic commands, nbconvert for sharing results.'},
+    {title:'Exploratory Data Analysis',sub:'Data profiling, cleaning, transformation, insights',detail:'Data profiling with ydata-profiling. Handling missing values: MCAR/MAR/MNAR analysis, imputation strategies. Outlier detection: IQR method, z-score, isolation forest. Data type corrections, string cleaning, datetime parsing. Feature correlation analysis and multicollinearity detection. EDA storytelling.'},
+    {title:'Machine Learning for Data Scientists',sub:'End-to-end ML pipeline, ensemble methods, AutoML',detail:'Full pipeline: preprocessing, feature engineering, training, evaluation, tuning. Cross-validation strategies. Classification and regression metrics. Scikit-learn Pipelines. Ensemble methods: bagging, boosting, stacking. XGBoost and LightGBM. Hyperparameter tuning with Optuna. MLflow for experiment tracking.'},
+    {title:'Time Series Analysis',sub:'ARIMA, Prophet, seasonal decomposition, forecasting',detail:'Time series components: trend, seasonality, cycles, noise. Stationarity tests: ADF, KPSS. Decomposition: additive vs multiplicative. ARIMA and SARIMA: identification, fitting, diagnostics. Meta Prophet for business forecasting with holidays and seasonality. LSTM for time series with PyTorch.'},
+    {title:'A/B Testing & Causal Inference',sub:'Experiment design, statistical significance, uplift modelling',detail:'A/B test design: hypothesis formulation, sample size calculation, randomisation. Statistical significance vs practical significance. Multiple comparisons (Bonferroni correction). Causal inference: difference-in-differences, instrumental variables, propensity score matching. Uplift modelling for personalised interventions.'},
+    {title:'Natural Language Processing',sub:'Text mining, sentiment analysis, topic modelling',detail:'Text preprocessing: tokenisation, stop words, stemming, lemmatisation. Bag of words, TF-IDF. Topic modelling with LDA. Sentiment analysis with VADER, TextBlob, BERT-based models. Named entity recognition with spaCy. Text classification pipeline from raw text to predictions.'},
+    {title:'Data Storytelling',sub:'Narrative structure, chart design, stakeholder communication',detail:'The Minto Pyramid for structured communication. Choosing the right chart for the message. Gestalt principles in data visualisation. Building a compelling data narrative: context, insight, recommendation. Presenting to non-technical stakeholders. Writing data science reports and case studies.'},
+    {title:'SQL & BI Tools',sub:'Advanced SQL, Tableau, Power BI, Looker Studio',detail:'Advanced SQL for data scientists: window functions, CTEs, query optimisation. Connecting Python to databases. Tableau for interactive dashboards: calculated fields, LODs, parameters. Power BI with DAX measures and Power Query. Looker Studio for free dashboards. When to use each tool.'},
+    {title:'Portfolio & Career',sub:'Case studies, GitHub, Kaggle, job applications',detail:'Building a data science portfolio: 3 projects covering different domains. Writing compelling case studies: problem, data, approach, insights, impact. GitHub profile optimisation. Kaggle competitions as portfolio evidence. DS interview preparation: technical, behavioural, and take-home assessments.'},
+  ],
+  resources:[
+    {icon:'▶',name:'Ken Jee — Data Science',type:'YouTube — career advice and project walkthroughs',badge:'free',url:'https://www.youtube.com/@KenJee_ds'},
+    {icon:'▶',name:'StatQuest with Josh Starmer',type:'YouTube — statistics and ML, clearly explained',badge:'free',url:'https://www.youtube.com/@statquest'},
+    {icon:'🌐',name:'Kaggle Learn',type:'Free micro-courses: Python, ML, SQL, data viz',badge:'free',url:'https://www.kaggle.com/learn'},
+    {icon:'🌐',name:'Mode Analytics SQL Tutorial',type:'Free interactive SQL for data scientists',badge:'free',url:'https://mode.com/sql-tutorial/'},
+    {icon:'📘',name:'Python for Data Analysis',type:'Book by Wes McKinney — the Pandas bible',badge:'paid',url:'https://wesmckinney.com/book/'},
+    {icon:'📘',name:'Storytelling with Data',type:'Book by Cole Nussbaumer — data visualisation',badge:'paid',url:'https://www.storytellingwithdata.com/'},
+    {icon:'🌐',name:'Towards Data Science',type:'Medium publication — practical DS articles',badge:'free',url:'https://towardsdatascience.com/'},
+    {icon:'🌐',name:'Google Data Analytics Certificate',type:'Coursera — 6-month professional certificate',badge:'paid',url:'https://www.coursera.org/professional-certificates/google-data-analytics'},
+  ],
+  practice:[
+    {icon:'🏆',name:'Kaggle Competitions',desc:'Real data science competitions with prizes',url:'https://www.kaggle.com/competitions'},
+    {icon:'🧪',name:'DrivenData',desc:'ML competitions for social good',url:'https://www.drivendata.org'},
+    {icon:'📊',name:'Tableau Public',desc:'Build and share interactive dashboards',url:'https://public.tableau.com'},
+    {icon:'📓',name:'Google Colab',desc:'Free cloud notebooks with GPU',url:'https://colab.research.google.com'},
+    {icon:'🗃',name:'UCI ML Repository',desc:'100s of free datasets for practice',url:'https://archive.ics.uci.edu/'},
+    {icon:'📈',name:'Our World in Data',desc:'Real-world datasets for analysis projects',url:'https://ourworldindata.org/'},
+  ],
+  timeline:[
+    {label:'Stats + Python',weeks:4,pct:19},{label:'Wrangling + EDA',weeks:4,pct:19},
+    {label:'Machine Learning',weeks:5,pct:24},{label:'Advanced Analytics',weeks:4,pct:19},{label:'Communication',weeks:4,pct:19},
+  ],
+  interviews:[
+    {q:'What is the difference between a data analyst and a data scientist?',a:'A data analyst focuses on understanding what happened and why — querying databases, building reports, communicating insights from historical data using SQL, Excel, and BI tools. A data scientist builds predictive models to forecast what will happen, experiments with ML algorithms, works with unstructured data, and requires deeper statistics and programming. In practice the roles overlap significantly and vary by company size.',diff:'easy'},
+    {q:'Explain p-value and statistical significance.',a:'A p-value is the probability of observing results at least as extreme as your data, assuming the null hypothesis is true. A p-value of 0.03 means 3% chance of seeing this result if the null were true. We reject the null when p < 0.05 (the alpha threshold). Important nuances: statistical significance is not the same as practical significance; p < 0.05 does not mean 95% probability the result is real; p-values are widely misunderstood and misused. Always report effect size alongside p-values.',diff:'medium'},
+    {q:'How do you handle imbalanced datasets?',a:'First choose appropriate metrics: F1, PR-AUC, or Matthews Correlation Coefficient instead of accuracy. Then try: class_weight="balanced" in scikit-learn (simplest), oversampling the minority with SMOTE, undersampling the majority, or threshold tuning. Never balance data before the train/val split — that leaks information. For extreme imbalance (< 1%), consider anomaly detection instead of classification.',diff:'medium'},
+    {q:'What is overfitting and how do you prevent it?',a:'Overfitting occurs when a model learns training data too well, including noise, and fails to generalise. Signs: high training accuracy, low validation accuracy, large train/val gap. Prevention: (1) More training data, (2) Regularisation: L1, L2, dropout, (3) Cross-validation, (4) Simpler model, (5) Early stopping, (6) Feature selection, (7) Ensemble methods (reduce variance). Always evaluate on a held-out test set that was never used during model development.',diff:'easy'},
+    {q:'Explain the difference between correlation and causation.',a:'Correlation means two variables tend to move together statistically. Causation means one variable directly causes change in the other. Classic example: ice cream sales and drowning rates are correlated (both rise in summer heat) but ice cream does not cause drowning — temperature is the confounding variable. To establish causation you need randomised controlled experiments, or use causal inference techniques: difference-in-differences, instrumental variables, regression discontinuity, or propensity score matching.',diff:'easy'},
+    {q:'Walk me through your approach to a new data science project.',a:'1) Understand the business problem and define success metrics. 2) Explore available data: sources, quality, size, freshness. 3) EDA: distributions, missing values, outliers, correlations, feature relationships. 4) Data cleaning and feature engineering. 5) Baseline model with a simple algorithm. 6) Iterate: more complex models, tune hyperparameters with Optuna. 7) Evaluate with appropriate metrics on held-out test set. 8) Interpret results: SHAP for explainability. 9) Communicate findings to stakeholders. 10) Deploy if required, with monitoring plan.',diff:'medium'},
+    {q:'What is A/B testing and what are common mistakes?',a:'A/B testing randomly assigns users to control (A) and treatment (B) groups to measure causal impact of a change. Common mistakes: (1) Stopping early when results look significant — peeking problem, p-values inflate. (2) Not calculating sample size before starting — underpowered tests. (3) Multiple testing problem — testing 20 metrics, 1 will be significant by chance. (4) Interference between groups — spillover effects. (5) Not checking for novelty effects in the first week. Use sequential testing or Bayesian methods to address peeking.',diff:'hard'},
+    {q:'Explain the bias-variance tradeoff.',a:'Bias is error from wrong assumptions — a too-simple model that cannot capture the true relationship (underfitting). High bias: high training AND test error. Variance is error from sensitivity to training data — a too-complex model that memorises training data (overfitting). High variance: low training error, high test error. The tradeoff: increasing model complexity reduces bias but increases variance. Ensemble methods like random forests reduce variance through bagging. Boosting reduces bias by sequentially correcting errors.',diff:'medium'},
+  ],
+  projects:[
+    {title:'Sales Forecasting Dashboard',desc:'Retail sales dataset. ARIMA and Prophet models. Tableau/Power BI dashboard showing forecasts vs actuals with confidence intervals.',tags:['Prophet','Python','Tableau'],diff:'medium',github:'https://github.com/topics/sales-forecasting',tutorial:'https://facebook.github.io/prophet/docs/quick_start.html'},
+    {title:'Customer Churn Predictor',desc:'End-to-end: EDA, feature engineering, XGBoost, SHAP explanations, Streamlit dashboard for business stakeholders.',tags:['XGBoost','SHAP','Streamlit'],diff:'medium',github:'https://github.com/topics/customer-churn-prediction',tutorial:'https://shap.readthedocs.io/en/latest/example_notebooks/tabular_examples/tree_based_models/Census+income+classification+with+XGBoost.html'},
+    {title:'COVID-19 Data Analysis',desc:'Download Our World in Data COVID dataset. EDA, trend analysis, country comparisons, vaccination impact study with visualisations.',tags:['Pandas','Matplotlib','Seaborn'],diff:'easy',github:'https://github.com/owid/covid-19-data',tutorial:'https://ourworldindata.org/coronavirus'},
+    {title:'Movie Recommendation Engine',desc:'Collaborative filtering with SVD + content-based filtering. Hybrid model. Evaluated with precision@k. FastAPI endpoint.',tags:['Sklearn','Scipy','FastAPI'],diff:'medium',github:'https://github.com/topics/movie-recommendation-system',tutorial:'https://surprise.readthedocs.io/en/stable/getting_started.html'},
+    {title:'A/B Test Analysis Tool',desc:'Given two landing page variants and conversion data, design and run a proper t-test. Report with confidence intervals and power analysis.',tags:['SciPy','Statistics','Python'],diff:'hard',github:'https://github.com/topics/ab-testing-python',tutorial:'https://www.statsmodels.org/stable/stats.html'},
+    {title:'NLP News Classifier',desc:'Classify news articles into categories. TF-IDF + logistic regression baseline, then fine-tune BERT. Deploy on Hugging Face Spaces.',tags:['BERT','Sklearn','HuggingFace'],diff:'hard',github:'https://github.com/topics/text-classification-bert',tutorial:'https://huggingface.co/docs/transformers/training'},
+  ],
+  planPhases:[
+    {name:'Phase 1 — Statistics & Python',color:'#B5D4F4',dot:'#378ADD',weeks:4,days:[
+      {t:'theory',tag:'Stats',task:'Descriptive stats: mean, median, mode, variance, std dev'},{t:'practice',tag:'Stats',task:'Calculate stats on 3 real datasets, compare distributions'},
+      {t:'theory',tag:'Prob',task:'Probability: conditional probability, Bayes theorem'},{t:'practice',tag:'Prob',task:'Build a Bayesian spam filter from scratch in Python'},
+      {t:'theory',tag:'Dist',task:'Distributions: normal, binomial, Poisson, t-distribution'},{t:'project',tag:'Project',task:'Simulate the Central Limit Theorem with 4 distributions'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Hyp',task:'Hypothesis testing: t-tests, chi-squared, ANOVA'},{t:'practice',tag:'Hyp',task:'Run 5 hypothesis tests on a real dataset, interpret results'},
+      {t:'theory',tag:'Reg',task:'Linear and logistic regression: theory and assumptions'},{t:'practice',tag:'Reg',task:'Regression analysis on housing dataset with diagnostics'},
+      {t:'theory',tag:'Python',task:'Pandas: DataFrames, groupby, merge, pivot, apply'},{t:'project',tag:'Project',task:'Full EDA report on the Titanic dataset'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Viz',task:'Matplotlib + Seaborn: chart selection, styling, subplots'},{t:'practice',tag:'Viz',task:'Create 10 different chart types visualising one dataset'},
+      {t:'theory',tag:'NumPy',task:'NumPy: vectorised operations, broadcasting, linear algebra'},{t:'practice',tag:'NumPy',task:'Rewrite 5 slow for-loops as vectorised NumPy operations'},
+      {t:'project',tag:'Capstone',task:'Phase 1 capstone: full statistical analysis report'},{t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'rest',tag:'Buffer',task:'Buffer: scipy.stats deep dive'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+      {t:'rest',tag:'Buffer',task:'Buffer day'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+    ]},
+    {name:'Phase 2 — Data Wrangling & EDA',color:'#9FE1CB',dot:'#1D9E75',weeks:4,days:[
+      {t:'theory',tag:'Clean',task:'Missing data: MCAR, MAR, MNAR and imputation strategies'},{t:'practice',tag:'Clean',task:'Clean a real messy dataset with 30%+ missing values'},
+      {t:'theory',tag:'Outlier',task:'Outlier detection: IQR, z-score, isolation forest'},{t:'practice',tag:'Outlier',task:'Detect and handle outliers in a financial dataset'},
+      {t:'theory',tag:'Feature',task:'Feature engineering: encoding, scaling, interactions'},{t:'project',tag:'Project',task:'Feature engineering that improves model accuracy by 10%+'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'EDA',task:'EDA frameworks: ydata-profiling, sweetviz automated reports'},{t:'practice',tag:'EDA',task:'Generate automated EDA report on a Kaggle dataset'},
+      {t:'theory',tag:'SQL',task:'Advanced SQL: window functions, CTEs, analytical queries'},{t:'practice',tag:'SQL',task:'10 analytical SQL queries on a real database'},
+      {t:'theory',tag:'API',task:'Working with APIs: REST, JSON, data extraction'},{t:'project',tag:'Project',task:'Pipeline from a public API to a cleaned DataFrame'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Corr',task:'Correlation analysis, multicollinearity, VIF'},{t:'practice',tag:'Corr',task:'Full correlation matrix and feature selection analysis'},
+      {t:'theory',tag:'Web',task:'Web scraping for data collection: BeautifulSoup'},{t:'practice',tag:'Web',task:'Scrape a website, clean and analyse the data'},
+      {t:'project',tag:'Capstone',task:'Phase 2 capstone: full EDA on a self-chosen domain dataset'},{t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'rest',tag:'Buffer',task:'Buffer: geospatial data with geopandas'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+      {t:'rest',tag:'Buffer',task:'Buffer day'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+    ]},
+    {name:'Phase 3 — Machine Learning',color:'#6EE7B7',dot:'#059669',weeks:5,days:[
+      {t:'theory',tag:'ML',task:'ML fundamentals: bias-variance, evaluation metrics'},{t:'practice',tag:'ML',task:'Baseline model comparison on 3 different datasets'},
+      {t:'theory',tag:'Ensemble',task:'Random Forest, XGBoost, LightGBM: how they work'},{t:'practice',tag:'Ensemble',task:'XGBoost: enter a Kaggle tabular competition'},
+      {t:'theory',tag:'Eval',task:'Model evaluation: cross-validation, ROC-AUC, confusion matrix'},{t:'project',tag:'Project',task:'Full model evaluation report with all standard metrics'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Pipeline',task:'Scikit-learn Pipelines: reproducible preprocessing + model'},{t:'practice',tag:'Pipeline',task:'Build a complete Pipeline for a classification problem'},
+      {t:'theory',tag:'Tune',task:'Hyperparameter tuning: Optuna, RandomSearch'},{t:'practice',tag:'Tune',task:'Optuna: improve model AUC by 2%+ through tuning'},
+      {t:'theory',tag:'MLflow',task:'MLflow: experiment tracking, model registry'},{t:'project',tag:'Project',task:'Log all Phase 3 experiments into MLflow dashboard'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Unsup',task:'Unsupervised: K-Means, DBSCAN, PCA clustering'},{t:'practice',tag:'Unsup',task:'Customer segmentation: actionable business insights'},
+      {t:'theory',tag:'SHAP',task:'SHAP for model explainability and feature importance'},{t:'practice',tag:'SHAP',task:'Add SHAP explanations to your best model'},
+      {t:'theory',tag:'Deploy',task:'Model deployment: FastAPI endpoint + Streamlit UI'},{t:'project',tag:'Project',task:'Deploy a model as a live Streamlit app'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'project',tag:'Capstone',task:'Phase 3 capstone: production ML model with full MLflow tracking'},{t:'rest',tag:'Rest',task:'Review and document'},
+      {t:'rest',tag:'Buffer',task:'Buffer: AutoML with Auto-sklearn or H2O'},{t:'rest',tag:'Buffer',task:'Buffer: imbalanced classes — SMOTE deep dive'},
+      {t:'rest',tag:'Buffer',task:'Buffer day'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+    ]},
+    {name:'Phase 4 — Advanced Analytics',color:'#06B6D4',dot:'#0E7490',weeks:4,days:[
+      {t:'theory',tag:'TS',task:'Time series: components, stationarity, ADF test'},{t:'practice',tag:'TS',task:'Decompose and plot a financial time series'},
+      {t:'theory',tag:'TS',task:'ARIMA and Prophet: fitting, forecasting, evaluation'},{t:'practice',tag:'TS',task:'Forecast sales for the next 30 days with Prophet'},
+      {t:'theory',tag:'AB',task:'A/B testing: design, sample size, significance testing'},{t:'project',tag:'Project',task:'Full A/B test: analysis with confidence intervals + recommendation'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Causal',task:'Causal inference: confounders, DiD, propensity scores'},{t:'practice',tag:'Causal',task:'DiD analysis on a real policy intervention dataset'},
+      {t:'theory',tag:'NLP',task:'NLP for DS: TF-IDF, topic modelling, sentiment'},{t:'practice',tag:'NLP',task:'Topic modelling on customer reviews with LDA'},
+      {t:'theory',tag:'Rec',task:'Recommender systems: collaborative + content-based'},{t:'project',tag:'Project',task:'Movie recommendation engine with SVD'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Geo',task:'Geospatial data: geopandas, folium, choropleth maps'},{t:'practice',tag:'Geo',task:'Choropleth map of a demographic or sales dataset'},
+      {t:'theory',tag:'Net',task:'Network analysis: graph metrics, community detection'},{t:'practice',tag:'Net',task:'Analyse a social network dataset with NetworkX'},
+      {t:'project',tag:'Capstone',task:'Phase 4 capstone: advanced analytics case study with business rec.'},{t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'rest',tag:'Buffer',task:'Buffer: survival analysis with lifelines'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+      {t:'rest',tag:'Buffer',task:'Buffer day'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+    ]},
+    {name:'Phase 5 — Communication & Career',color:'#0891B2',dot:'#0C4A6E',weeks:4,days:[
+      {t:'theory',tag:'Story',task:'Data storytelling: Minto Pyramid, narrative structure'},{t:'practice',tag:'Story',task:'Transform a technical analysis into an executive one-pager'},
+      {t:'theory',tag:'Tableau',task:'Advanced Tableau: LODs, table calcs, dashboard design'},{t:'practice',tag:'Tableau',task:'Build an executive KPI dashboard in Tableau Public'},
+      {t:'theory',tag:'PowerBI',task:'Power BI: DAX, Power Query, publishing reports'},{t:'project',tag:'Project',task:'Full BI dashboard connecting Python model output to Power BI'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'project',tag:'Case',task:'Case study 1: full DS project documented end-to-end'},{t:'project',tag:'Case',task:'Case study 2: Kaggle competition with detailed write-up'},
+      {t:'project',tag:'Case',task:'Case study 3: new domain (finance, health, product)'},{t:'practice',tag:'Interview',task:'DS interview prep: 20 technical + behavioural questions'},
+      {t:'practice',tag:'Interview',task:'Take-home assessment simulation: 4-hour analytics challenge'},{t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'project',tag:'Resume',task:'DS resume: projects, Kaggle profile, GitHub, skills'},{t:'practice',tag:'Interview',task:'Mock interview: SQL + statistics + ML case study'},
+      {t:'project',tag:'Launch',task:'Apply to 5 data scientist / senior analyst roles'},{t:'rest',tag:'Rest',task:'Celebrate!'},
+      {t:'rest',tag:'Buffer',task:'Buffer: domain specialisation choice (finance, healthcare, product)'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+      {t:'rest',tag:'Buffer',task:'Buffer day'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+    ]},
+  ],
+},
+{
+  id:'python', color:'c-amber', icon:'🐍', accent:'#f59e0b',
+  title:'Python Programming', difficulty:'Beginner-Friendly', duration:'3–4 months', hot:false,
+  desc:'Python from basics to advanced: OOP, automation, web scraping, APIs, testing and packaging.',
+  phases:[
+    {label:'Phase 1',title:'Python Basics',topics:['Syntax','Data Types','Control Flow','Functions','Modules'],weeks:3,bg:'rgba(245,158,11,.2)',tc:'#fcd34d'},
+    {label:'Phase 2',title:'Intermediate Python',topics:['OOP','File I/O','Error Handling','Decorators','Generators'],weeks:3,bg:'rgba(245,158,11,.4)',tc:'#fcd34d'},
+    {label:'Phase 3',title:'Automation & Scripting',topics:['os/sys','Automation','Web Scraping','Regex','CSV/JSON'],weeks:3,bg:'rgba(245,158,11,.6)',tc:'#fbbf24'},
+    {label:'Phase 4',title:'APIs & Databases',topics:['REST APIs','requests','SQLite','SQLAlchemy','FastAPI'],weeks:3,bg:'rgba(245,158,11,.75)',tc:'#fbbf24'},
+    {label:'Phase 5',title:'Testing & Advanced',topics:['pytest','Typing','Concurrency','Packaging','Portfolio'],weeks:3,bg:'rgba(245,158,11,.9)',tc:'#f59e0b'},
+  ],
+  syllabus:[
+    {title:'Python Fundamentals',sub:'Syntax, data types, operators, control flow, functions',detail:'Variables, integers, floats, strings, booleans, lists, tuples, dicts, sets. Conditional statements, for/while loops, break/continue, pass. Functions: positional args, default values, *args, **kwargs, return values. Modules and packages: import, from, as. The Python standard library: os, sys, math, random, datetime.'},
+    {title:'Object-Oriented Python',sub:'Classes, inheritance, dunder methods, dataclasses',detail:'Classes: __init__, instance vs class variables, instance methods, static methods, class methods. Encapsulation, inheritance, method resolution order (MRO). Dunder methods: __str__, __repr__, __len__, __eq__, __iter__. Properties with @property decorator. Dataclasses for clean value objects. Abstract base classes with abc module.'},
+    {title:'Functional Python',sub:'Comprehensions, generators, decorators, closures',detail:'List, dict, and set comprehensions with conditions. Generator functions and expressions with yield — memory-efficient iteration. Lambda functions. Map, filter, functools.reduce. Closures and factory functions. Decorators: wrapping functions, @functools.wraps, stacking decorators, decorators with arguments. Context managers with contextlib.'},
+    {title:'File Handling & Automation',sub:'File I/O, pathlib, os, shutil, subprocess, scheduling',detail:'Read/write text and binary files. pathlib for cross-platform paths. os and shutil for file and directory operations. subprocess for running system commands. Automating repetitive tasks: batch rename files, process images, parse logs. Schedule automation with APScheduler. watchdog for file system monitoring.'},
+    {title:'Web Scraping',sub:'requests, BeautifulSoup, Selenium, rate limiting',detail:'HTTP with requests: headers, sessions, authentication, cookies. Parsing HTML with BeautifulSoup4: find, select CSS, navigating the DOM tree. Handling pagination, infinite scroll. Dynamic websites with Selenium: webdriver, explicit waits, form filling. Scrapy for large-scale scraping. Respecting robots.txt and rate limits.'},
+    {title:'Working with Data',sub:'CSV, JSON, Excel, SQLite, pandas basics',detail:'CSV with the csv module and pandas. JSON: load, dump, nested structures, API responses. Excel with openpyxl: read, write, format. SQLite with sqlite3 and SQLAlchemy Core. pandas DataFrame: read_csv, filtering, groupby, merge. NumPy arrays and vectorised operations for numerical computing.'},
+    {title:'APIs & FastAPI',sub:'Consuming REST APIs, building APIs, async endpoints',detail:'Consuming APIs: requests, API key auth, OAuth2, JWT. Parsing and validating JSON responses with Pydantic. Building APIs with FastAPI: path operations, Pydantic models, dependency injection, async endpoints, background tasks. Auto-generated OpenAPI docs. Deploying FastAPI to Railway or Render.'},
+    {title:'Testing Python Code',sub:'pytest, unittest, mocking, TDD, coverage',detail:'pytest: test discovery, fixtures, parametrize, markers, plugins. Arrange-Act-Assert pattern. Mocking with unittest.mock: Mock, patch, MagicMock. Test-driven development (TDD) cycle: red, green, refactor. Code coverage with pytest-cov. Writing testable code: pure functions, dependency injection.'},
+    {title:'Concurrency & Performance',sub:'threading, asyncio, multiprocessing, profiling',detail:'The GIL and its implications for Python concurrency. threading for I/O-bound tasks. multiprocessing for CPU-bound tasks. asyncio event loop: async/await, Tasks, gather, asyncio.run. aiohttp for async HTTP requests. cProfile and line_profiler for performance profiling. Memory profiling with memory_profiler. Optimisation with functools.lru_cache.'},
+    {title:'Packaging & Career Projects',sub:'virtual envs, Poetry, CLI tools, publishing to PyPI',detail:'Virtual environments: venv, conda. Poetry for dependency management, packaging, and publishing. pyproject.toml as the modern Python project config. Building a CLI tool with Click or Typer. Publishing a package to PyPI. Writing documentation with Sphinx. Building a Python portfolio with 3 solid projects.'},
+  ],
+  resources:[
+    {icon:'▶',name:'Sentdex',type:'YouTube — Python programming full series',badge:'free',url:'https://www.youtube.com/@sentdex'},
+    {icon:'▶',name:'Corey Schafer',type:'YouTube — Python OOP, Flask, Django',badge:'free',url:'https://www.youtube.com/@coreyms'},
+    {icon:'🌐',name:'Python Official Docs',type:'Official Python documentation and tutorial',badge:'free',url:'https://docs.python.org/3/tutorial/'},
+    {icon:'🌐',name:'Real Python',type:'In-depth Python tutorials and articles',badge:'free',url:'https://realpython.com/'},
+    {icon:'🌐',name:'Automate the Boring Stuff',type:'Free book — practical Python automation',badge:'free',url:'https://automatetheboringstuff.com/'},
+    {icon:'🌐',name:'freeCodeCamp Python',type:'Free Python certification course',badge:'free',url:'https://www.freecodecamp.org/learn/scientific-computing-with-python/'},
+    {icon:'📘',name:'Fluent Python',type:'Book by Luciano Ramalho — advanced Python',badge:'paid',url:'https://www.oreilly.com/library/view/fluent-python-2nd/9781492056348/'},
+    {icon:'🌐',name:'Python Challenge',type:'Riddle-based Python learning puzzles',badge:'free',url:'http://www.pythonchallenge.com/'},
+  ],
+  practice:[
+    {icon:'🏋',name:'LeetCode',desc:'Python DSA challenges for interviews',url:'https://leetcode.com'},
+    {icon:'🎯',name:'HackerRank Python',desc:'Structured Python domain challenges',url:'https://www.hackerrank.com/domains/python'},
+    {icon:'🧩',name:'Exercism Python',desc:'Mentored Python practice exercises',url:'https://exercism.org/tracks/python'},
+    {icon:'📓',name:'Google Colab',desc:'Free Python notebooks in the cloud',url:'https://colab.research.google.com'},
+    {icon:'🕹',name:'Python Challenge',desc:'Riddle-based puzzles to sharpen Python',url:'http://www.pythonchallenge.com/'},
+    {icon:'🔬',name:'PyPI',desc:'Explore and contribute to Python packages',url:'https://pypi.org/'},
+  ],
+  timeline:[
+    {label:'Python Basics',weeks:3,pct:20},{label:'Intermediate',weeks:3,pct:20},
+    {label:'Automation',weeks:3,pct:20},{label:'APIs + DBs',weeks:3,pct:20},{label:'Testing + Advanced',weeks:3,pct:20},
+  ],
+  interviews:[
+    {q:'What is a Python decorator and how does it work?',a:'A decorator is a function that takes another function as argument, adds functionality, and returns the modified function. @decorator is syntactic sugar for func = decorator(func). Common uses: timing, logging, authentication, caching, rate-limiting. functools.wraps preserves the original function name and docstring. Decorators with arguments require an extra nesting level: the outer function takes arguments and returns the actual decorator.',diff:'medium'},
+    {q:'What is the difference between a list, tuple, and set in Python?',a:'List: ordered, mutable, allows duplicates — [1,2,3]. Use when you need an ordered, changeable sequence. Tuple: ordered, immutable, allows duplicates — (1,2,3). Faster than lists, used for fixed data or as dict keys. Set: unordered, mutable, no duplicates — {1,2,3}. O(1) average lookup, great for membership testing and deduplication. FrozenSet is the immutable set variant. Choose based on whether order matters and whether duplicates are meaningful.',diff:'easy'},
+    {q:'Explain Python generators and when to use them.',a:'A generator function uses yield to produce values lazily — one at a time, only when requested by next(). Instead of building a whole list in memory, generators produce items on demand. Use when: processing large files (read line by line), infinite sequences, building data pipelines, reducing memory usage. Generator expressions (n for n in range(1000000)) are memory-efficient alternatives to list comprehensions. Generators maintain state between yields via the call frame.',diff:'medium'},
+    {q:'What is the GIL and how does it affect Python concurrency?',a:'The Global Interpreter Lock (GIL) is a mutex in CPython that allows only one thread to execute Python bytecode at a time, even on multi-core CPUs. For I/O-bound tasks (network requests, file reading), threading works well — threads release the GIL while waiting for I/O. For CPU-bound tasks, use multiprocessing (separate processes, each with their own GIL) or Cython/C extensions. asyncio is better than threading for I/O-bound tasks as it avoids thread overhead entirely.',diff:'hard'},
+    {q:'How do you manage Python dependencies in a project?',a:'Best practice: always use a virtual environment (python -m venv .venv). Use pip with requirements.txt for simple projects. For modern projects, use Poetry: manages dependencies, virtual environments, and packaging with a pyproject.toml lockfile. Pin exact versions for reproducible builds (pip freeze > requirements.txt). Separate dev dependencies (pytest, black, mypy) from production. Use pyenv for Python version management. Docker containers for deployment isolation.',diff:'easy'},
+    {q:'What is the difference between __str__ and __repr__?',a:'__repr__ returns an unambiguous string representation ideally usable to recreate the object — aimed at developers. eval(repr(obj)) should ideally recreate the object. __str__ returns a readable, user-friendly string. When you print() an object, Python calls __str__. In the REPL or when repr() is called, Python calls __repr__. If only __repr__ is defined, it is used for both. Rule: always define __repr__; define __str__ when you want a different user-facing representation.',diff:'medium'},
+    {q:'How does Python handle memory management?',a:'Python uses automatic memory management with reference counting plus a cyclic garbage collector. Each object has a reference count; when it reaches 0, the memory is freed immediately. The gc module handles reference cycles (A→B→A) which reference counting alone cannot free. The memory allocator uses pools for small objects (< 512 bytes) for efficiency. id() returns the memory address. Tools: tracemalloc for memory profiling, objgraph for finding memory leaks. CPython does not return memory to OS aggressively.',diff:'hard'},
+    {q:'What are *args and **kwargs in Python?',a:'*args allows a function to accept any number of positional arguments, collected into a tuple. **kwargs allows any number of keyword arguments, collected into a dict. Example: def func(*args, **kwargs): print(args, kwargs). func(1,2,3, x=4) prints (1,2,3) {x:4}. The * and ** are also used for unpacking: func(*[1,2,3]) passes list items as positional args. Useful for: wrapper functions that pass arguments through, flexible APIs, mixins and metaclasses.',diff:'easy'},
+  ],
+  projects:[
+    {title:'Job Scraper & Alert',desc:'Scrape job listings daily with BeautifulSoup. Store in SQLite. Email matching jobs. Fully automated with scheduling.',tags:['BeautifulSoup','SQLite','SMTP'],diff:'easy',github:'https://github.com/topics/job-scraper-python',tutorial:'https://realpython.com/beautiful-soup-web-scraper-python/'},
+    {title:'CLI Productivity Tool',desc:'Command-line tool with 5+ commands: todo manager, timer, note-taker, habit tracker. Published to PyPI with full tests.',tags:['Typer','pytest','PyPI'],diff:'medium',github:'https://github.com/topics/python-cli-tool',tutorial:'https://typer.tiangolo.com/tutorial/'},
+    {title:'FastAPI REST API',desc:'Backend API with JWT auth, PostgreSQL via SQLAlchemy, Pydantic validation, full OpenAPI docs, deployed to Railway.',tags:['FastAPI','PostgreSQL','Docker'],diff:'medium',github:'https://github.com/fastapi/full-stack-fastapi-template',tutorial:'https://fastapi.tiangolo.com/tutorial/'},
+    {title:'Data Pipeline Automator',desc:'Pull data from a public API daily, clean with pandas, store in SQLite, generate charts, email a weekly PDF report.',tags:['pandas','Schedule','ReportLab'],diff:'medium',github:'https://github.com/topics/data-pipeline-python',tutorial:'https://realpython.com/python-pandas-tricks/'},
+    {title:'Discord Bot',desc:'Useful Discord bot: weather lookup, reminders, trivia, moderation commands. Hosted free on Railway.',tags:['discord.py','asyncio','APIs'],diff:'easy',github:'https://github.com/Rapptz/discord.py',tutorial:'https://discordpy.readthedocs.io/en/stable/quickstart.html'},
+    {title:'Stock Market Analyser',desc:'Download OHLCV data with yfinance. Technical indicators with pandas_ta. Backtesting a simple strategy. Interactive Plotly charts.',tags:['yfinance','pandas','Plotly'],diff:'hard',github:'https://github.com/topics/stock-analysis-python',tutorial:'https://pypi.org/project/yfinance/'},
+  ],
+  planPhases:[
+    {name:'Phase 1 — Python Basics',color:'#FCD34D',dot:'#D97706',weeks:3,days:[
+      {t:'theory',tag:'Python',task:'Setup, variables, data types, print, input'},{t:'practice',tag:'Python',task:'20 beginner exercises on HackerRank Python domain'},
+      {t:'theory',tag:'Python',task:'Lists, tuples, dicts, sets — operations and methods'},{t:'practice',tag:'Python',task:'Build a simple phonebook using a dictionary'},
+      {t:'theory',tag:'Python',task:'Control flow: if/elif/else, for, while, break, continue'},{t:'project',tag:'Project',task:'Number guessing game with score tracking'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Python',task:'Functions: parameters, return, *args, **kwargs, scope'},{t:'practice',tag:'Python',task:'Write 10 utility functions (capitalize_words, flatten_list, etc.)'},
+      {t:'theory',tag:'Python',task:'Modules: os, sys, math, random, datetime'},{t:'practice',tag:'Python',task:'Build a file organiser using os and shutil'},
+      {t:'theory',tag:'Python',task:'String methods, f-strings, format, slicing'},{t:'project',tag:'Project',task:'Text analyser: word count, frequency, most common words'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Python',task:'List and dict comprehensions'},{t:'practice',tag:'Python',task:'Rewrite 5 for-loops as comprehensions'},
+      {t:'project',tag:'Capstone',task:'Phase 1 capstone: contact book CLI app with search and file save'},{t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'rest',tag:'Buffer',task:'Buffer: lambda, map, filter, reduce'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+      {t:'rest',tag:'Buffer',task:'Buffer day'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+    ]},
+    {name:'Phase 2 — Intermediate Python',color:'#FBB024',dot:'#B45309',weeks:3,days:[
+      {t:'theory',tag:'OOP',task:'Classes: __init__, attributes, instance methods'},{t:'practice',tag:'OOP',task:'Build a BankAccount class with deposit/withdraw'},
+      {t:'theory',tag:'OOP',task:'Inheritance, super(), method overriding, MRO'},{t:'practice',tag:'OOP',task:'Animals hierarchy: Animal → Dog/Cat with polymorphism'},
+      {t:'theory',tag:'OOP',task:'Dunder methods: __str__, __repr__, __len__, __eq__'},{t:'project',tag:'Project',task:'Build a Vector class with arithmetic operations'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Functional',task:'Generators, yield, iterators, lazy evaluation'},{t:'practice',tag:'Functional',task:'Generator for Fibonacci sequence, large file reader'},
+      {t:'theory',tag:'Functional',task:'Decorators: wrapping, @functools.wraps, with arguments'},{t:'practice',tag:'Functional',task:'Build timing, logging, and retry decorators'},
+      {t:'theory',tag:'Error',task:'Exception handling: try/except/else/finally, custom exceptions'},{t:'project',tag:'Project',task:'Robust file processor with custom exceptions and logging'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'OOP',task:'Dataclasses, properties, classmethods, staticmethods'},{t:'practice',tag:'OOP',task:'Refactor a class using @dataclass and @property'},
+      {t:'project',tag:'Capstone',task:'Phase 2 capstone: OOP-based library management system'},{t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'rest',tag:'Buffer',task:'Buffer: context managers with __enter__ / __exit__'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+      {t:'rest',tag:'Buffer',task:'Buffer day'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+    ]},
+    {name:'Phase 3 — Automation & Scripting',color:'#F59E0B',dot:'#92400E',weeks:3,days:[
+      {t:'theory',tag:'Files',task:'File I/O: read, write, append, binary, pathlib'},{t:'practice',tag:'Files',task:'Build a file organiser that sorts by extension'},
+      {t:'theory',tag:'Regex',task:'Regular expressions: patterns, groups, sub, findall'},{t:'practice',tag:'Regex',task:'Parse log files, extract IPs and timestamps with regex'},
+      {t:'theory',tag:'Scrape',task:'Web scraping: requests + BeautifulSoup'},{t:'project',tag:'Project',task:'Scrape a news site, save headlines + URLs to CSV'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Scrape',task:'Dynamic sites with Selenium: waits, forms, screenshots'},{t:'practice',tag:'Scrape',task:'Automate a form submission and screenshot the result'},
+      {t:'theory',tag:'Auto',task:'Task automation: renaming, resizing images, PDF manipulation'},{t:'practice',tag:'Auto',task:'Automate: rename 100 files by date, resize images to thumbnails'},
+      {t:'theory',tag:'Schedule',task:'Scheduling tasks: APScheduler, cron on Linux'},{t:'project',tag:'Project',task:'Daily weather report emailer scheduled with APScheduler'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Data',task:'CSV, JSON, Excel processing at scale'},{t:'practice',tag:'Data',task:'Process a 100MB CSV file efficiently with chunks'},
+      {t:'project',tag:'Capstone',task:'Phase 3 capstone: fully automated data collection + report pipeline'},{t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'rest',tag:'Buffer',task:'Buffer: Selenium for browser automation testing'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+      {t:'rest',tag:'Buffer',task:'Buffer day'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+    ]},
+    {name:'Phase 4 — APIs & Databases',color:'#D97706',dot:'#78350F',weeks:3,days:[
+      {t:'theory',tag:'API',task:'REST APIs: HTTP, JSON, authentication, rate limits'},{t:'practice',tag:'API',task:'Pull data from 3 different public APIs'},
+      {t:'theory',tag:'API',task:'requests: sessions, headers, error handling, retries'},{t:'practice',tag:'API',task:'Build a robust API client with retry logic and caching'},
+      {t:'theory',tag:'SQLite',task:'SQLite with sqlite3: create, insert, query, update, delete'},{t:'project',tag:'Project',task:'Book tracker app: SQLite backend, CLI interface'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'SQLAlchemy',task:'SQLAlchemy ORM: models, sessions, queries, relationships'},{t:'practice',tag:'SQLAlchemy',task:'Refactor sqlite3 app to use SQLAlchemy ORM'},
+      {t:'theory',tag:'FastAPI',task:'FastAPI: routes, Pydantic models, async, OpenAPI docs'},{t:'practice',tag:'FastAPI',task:'Build a CRUD REST API in FastAPI with auto docs'},
+      {t:'theory',tag:'FastAPI',task:'FastAPI: JWT auth, middleware, error handlers, deployment'},{t:'project',tag:'Project',task:'Full FastAPI app with auth, PostgreSQL, deployed to Railway'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Async',task:'asyncio + aiohttp: concurrent API calls'},{t:'practice',tag:'Async',task:'Fetch 100 URLs concurrently, compare time vs sequential'},
+      {t:'project',tag:'Capstone',task:'Phase 4 capstone: production API deployed with full OpenAPI docs'},{t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'rest',tag:'Buffer',task:'Buffer: Redis caching with redis-py'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+      {t:'rest',tag:'Buffer',task:'Buffer day'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+    ]},
+    {name:'Phase 5 — Testing & Advanced',color:'#B45309',dot:'#451A03',weeks:3,days:[
+      {t:'theory',tag:'pytest',task:'pytest: test discovery, fixtures, parametrize, markers'},{t:'practice',tag:'pytest',task:'Write tests for your FastAPI app: 80%+ coverage'},
+      {t:'theory',tag:'Mock',task:'Mocking: unittest.mock, patch, MagicMock, side_effect'},{t:'practice',tag:'Mock',task:'Mock external API calls in your test suite'},
+      {t:'theory',tag:'Type',task:'Type hints: basics, generics, TypedDict, Protocol, mypy'},{t:'project',tag:'Project',task:'Add full type annotations to a previous project, run mypy'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'theory',tag:'Perf',task:'Profiling: cProfile, line_profiler, memory_profiler'},{t:'practice',tag:'Perf',task:'Profile a slow function, optimise it 10x'},
+      {t:'theory',tag:'Package',task:'Poetry: create, version, publish a Python package'},{t:'practice',tag:'Package',task:'Publish a simple utility package to TestPyPI'},
+      {t:'theory',tag:'Concur',task:'asyncio advanced: gather, semaphore, queues'},{t:'project',tag:'Project',task:'Async web scraper: fetch 500 pages concurrently with aiohttp'},
+      {t:'rest',tag:'Rest',task:'Rest day'},
+      {t:'project',tag:'Portfolio',task:'GitHub: 3 Python projects with READMEs, tests, type hints'},{t:'practice',tag:'Interview',task:'Python interview prep: 20 questions'},
+      {t:'project',tag:'Launch',task:'Apply to Python developer / automation engineer roles'},{t:'rest',tag:'Rest',task:'Celebrate!'},
+      {t:'rest',tag:'Buffer',task:'Buffer: Pydantic v2 deep dive'},{t:'rest',tag:'Buffer',task:'Buffer day'},
+    ]},
+  ],
+},
+
 ];
 
 // ══════════════════════════════════════════════
@@ -1822,6 +2362,7 @@ function showTab(tab) {
   else if (tab === 'study-plan') {
     el.innerHTML = buildStudyPlan(c);
     refreshPlanStats(c);
+    setTimeout(()=>updatePlanEstimate(c.id), 50);
   }
 
   else if (tab === 'timeline') {
@@ -1840,32 +2381,11 @@ function showTab(tab) {
   }
 
   else if (tab === 'interview') {
-    el.innerHTML = `
-      <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Click any question to reveal the answer.</p>
-      <div class="qa-list">${c.interviews.map(qa=>`
-        <div class="qa-item">
-          <div class="qa-q" onclick="toggleQa(this.parentElement)">
-            <span>${qa.q}</span><span class="qa-arrow">▼</span>
-          </div>
-          <div class="qa-a">${qa.a}</div>
-        </div>`).join('')}
-      </div>`;
+    el.innerHTML = buildInterviewTab(c);
   }
 
   else if (tab === 'projects') {
-    el.innerHTML = `
-      <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Build these projects to create a strong portfolio. Start with Easy, work up to Hard.</p>
-      <div class="proj-grid">${c.projects.map((p,i)=>`
-        <div class="proj-card">
-          <div class="proj-num">Project ${String(i+1).padStart(2,'0')}</div>
-          <div class="proj-title">${p.title}</div>
-          <div class="proj-desc">${p.desc}</div>
-          <div class="proj-tags">
-            ${p.tags.map(t=>`<span class="proj-tag">${t}</span>`).join('')}
-            <span class="proj-diff diff-${p.diff}">${p.diff.charAt(0).toUpperCase()+p.diff.slice(1)}</span>
-          </div>
-        </div>`).join('')}
-      </div>`;
+    el.innerHTML = buildProjectsTab(c);
   }
 }
 
@@ -1980,6 +2500,228 @@ function resetPlan(courseId) {
 }
 
 // ══════════════════════════════════════════════
+//  FEEDBACK SYSTEM
+// ══════════════════════════════════════════════
+let fbRating = 0;
+let fbType = 'General';
+
+function openFeedback(){
+  document.getElementById('fbOverlay').classList.add('open');
+  document.getElementById('fbForm').style.display='block';
+  document.getElementById('fbSuccess').style.display='none';
+  fbRating=0; updateStars();
+}
+function closeFeedback(){ document.getElementById('fbOverlay').classList.remove('open'); }
+
+function setRating(n){
+  fbRating=n; updateStars();
+}
+function updateStars(){
+  document.querySelectorAll('.fb-star').forEach((s,i)=>{
+    s.classList.toggle('active', i<fbRating);
+  });
+}
+function setType(el,t){
+  fbType=t;
+  document.querySelectorAll('.fb-type').forEach(x=>x.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const ta = document.getElementById('fbText');
+  if(ta) ta.addEventListener('input',()=>{
+    const l=ta.value.length;
+    document.getElementById('fbCount').textContent=l+' / 500';
+    if(l>500) ta.value=ta.value.slice(0,500);
+  });
+});
+
+function submitFeedback(){
+  const text = document.getElementById('fbText').value.trim();
+  if(!text){ alert('Please write something before submitting.'); return; }
+  const sess = localStorage.getItem('lc_session');
+  let user = 'Anonymous';
+  try{ user = JSON.parse(sess).name || 'Anonymous'; }catch(e){}
+  const entry = {
+    date: new Date().toISOString(),
+    user,
+    rating: fbRating,
+    type: fbType,
+    text,
+    page: currentCourse ? currentCourse.title : 'Home',
+  };
+  const all = JSON.parse(localStorage.getItem('lc_feedback')||'[]');
+  all.push(entry);
+  localStorage.setItem('lc_feedback', JSON.stringify(all));
+  document.getElementById('fbForm').style.display='none';
+  document.getElementById('fbSuccess').style.display='block';
+  setTimeout(closeFeedback, 2200);
+}
+
+// ══════════════════════════════════════════════
+//  IMPROVED STUDY PLAN — CUSTOMIZABLE
+// ══════════════════════════════════════════════
+function buildStudyPlan(c) {
+  const todayStr = new Date().toISOString().split('T')[0];
+  const totalStudy = c.planPhases.reduce((s,p)=>s+p.days.filter(d=>d.t!=='rest').length,0);
+  return `
+    <div id="planWrap">
+      <div class="plan-config">
+        <div class="plan-config-title">Personalise your study plan</div>
+        <div class="plan-config-grid">
+          <div class="pcg-item">
+            <label>HOURS PER DAY</label>
+            <select id="hrsSelect" onchange="updatePlanEstimate('${c.id}')">
+              <option value="1">1 hour</option>
+              <option value="2" selected>2 hours</option>
+              <option value="3">3 hours</option>
+              <option value="4">4 hours</option>
+              <option value="5">5+ hours</option>
+            </select>
+          </div>
+          <div class="pcg-item">
+            <label>DAYS PER WEEK</label>
+            <select id="daysSelect" onchange="updatePlanEstimate('${c.id}')">
+              <option value="3">3 days/week</option>
+              <option value="5" selected>5 days/week</option>
+              <option value="6">6 days/week</option>
+              <option value="7">7 days/week</option>
+            </select>
+          </div>
+          <div class="pcg-item">
+            <label>START DATE</label>
+            <input type="date" id="startDate" value="${todayStr}" onchange="updatePlanEstimate('${c.id}')"/>
+          </div>
+          <div class="pcg-item">
+            <label>EXPERIENCE LEVEL</label>
+            <select id="expLevel" onchange="updatePlanEstimate('${c.id}')">
+              <option value="beginner">Complete beginner</option>
+              <option value="some" selected>Some experience</option>
+              <option value="advanced">Fairly experienced</option>
+            </select>
+          </div>
+        </div>
+        <div class="plan-estimate" id="planEstimate">Loading estimate...</div>
+      </div>
+      <div class="plan-stats" id="planStats"></div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:rgba(6,182,212,.4)"></div>Theory</div>
+        <div class="leg"><div class="leg-dot" style="background:rgba(16,185,129,.4)"></div>Practice</div>
+        <div class="leg"><div class="leg-dot" style="background:rgba(245,158,11,.4)"></div>Project</div>
+        <div class="leg"><div class="leg-dot" style="background:rgba(255,255,255,.1)"></div>Rest</div>
+        <div class="leg"><div class="leg-dot" style="background:rgba(16,185,129,.2);border:1px solid rgba(16,185,129,.4)"></div>Done ✓</div>
+      </div>
+      <div class="tip-box" id="planTip"></div>
+      <div id="planCal"></div>
+      <button class="reset-btn" onclick="resetPlan('${c.id}')">Reset progress</button>
+    </div>`;
+}
+
+function updatePlanEstimate(cid){
+  const c = COURSES.find(x=>x.id===cid);
+  if(!c || !document.getElementById('planEstimate')) return;
+  const hrs = parseInt(document.getElementById('hrsSelect')?.value||2);
+  const daysPerWk = parseInt(document.getElementById('daysSelect')?.value||5);
+  const expLevel = document.getElementById('expLevel')?.value||'some';
+  const startVal = document.getElementById('startDate')?.value;
+
+  // Adjust total weeks based on experience
+  const totalWeeks = c.planPhases.reduce((s,p)=>s+p.weeks,0);
+  const multiplier = expLevel==='beginner'?1.3 : expLevel==='advanced'?0.75 : 1;
+  const adjustedWeeks = Math.round(totalWeeks * multiplier);
+  const totalDays = adjustedWeeks * daysPerWk;
+
+  let finishStr = '';
+  if(startVal){
+    const start = new Date(startVal);
+    let workDays = 0, cur = new Date(start);
+    while(workDays < totalDays){
+      const day = cur.getDay();
+      if(daysPerWk>=7 || (daysPerWk>=6 && day!==0) || (daysPerWk>=5 && day!==0 && day!==6) ||
+         (daysPerWk===3 && [1,3,5].includes(day))) workDays++;
+      cur.setDate(cur.getDate()+1);
+    }
+    finishStr = ' · Finish by ~' + cur.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+  }
+
+  const expNote = expLevel==='beginner'?' (extended for beginners)':expLevel==='advanced'?' (accelerated pace)':'';
+  document.getElementById('planEstimate').innerHTML =
+    `📅 Estimated duration: <strong style="color:var(--text)">${adjustedWeeks} weeks</strong>${expNote} · ` +
+    `<strong style="color:var(--text)">${hrs} hrs/day × ${daysPerWk} days/week</strong> = ` +
+    `${hrs*daysPerWk} hrs/week${finishStr}`;
+
+  refreshPlanStats(c);
+}
+
+// ══════════════════════════════════════════════
+//  IMPROVED INTERVIEWS — DIFFICULTY FILTER
+// ══════════════════════════════════════════════
+function buildInterviewTab(c){
+  // Add difficulty to interviews if not present
+  const interviews = c.interviews.map((q,i)=>({
+    ...q,
+    diff: q.diff || (i<2?'easy': i<4?'medium':'hard')
+  }));
+
+  return `
+    <div style="margin-bottom:16px;">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">${interviews.length} interview questions — click to reveal answers.</div>
+      <div class="int-filter">
+        <div class="int-badge active" onclick="filterInt(this,'all')">All (${interviews.length})</div>
+        <div class="int-badge easy" onclick="filterInt(this,'easy')">🟢 Easy (${interviews.filter(q=>(!q.diff||q.diff==='easy')).length})</div>
+        <div class="int-badge med" onclick="filterInt(this,'medium')">🟡 Medium (${interviews.filter(q=>q.diff==='medium').length})</div>
+        <div class="int-badge hard" onclick="filterInt(this,'hard')">🔴 Hard (${interviews.filter(q=>q.diff==='hard').length})</div>
+      </div>
+    </div>
+    <div class="qa-list" id="qaList">${interviews.map((qa,i)=>`
+      <div class="qa-item" data-diff="${qa.diff||'easy'}">
+        <div class="qa-q" onclick="toggleQa(this.parentElement)">
+          <span>${qa.q}</span>
+          <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+            <span style="font-size:10px;padding:2px 8px;border-radius:10px;background:${qa.diff==='hard'?'rgba(239,68,68,.15)':qa.diff==='medium'?'rgba(245,158,11,.15)':'rgba(16,185,129,.15)'};color:${qa.diff==='hard'?'#fca5a5':qa.diff==='medium'?'#fcd34d':'#6ee7b7'}">${qa.diff||'easy'}</span>
+            <span class="qa-arrow">▼</span>
+          </div>
+        </div>
+        <div class="qa-a">${qa.a}</div>
+      </div>`).join('')}
+    </div>`;
+}
+
+function filterInt(btn, level){
+  document.querySelectorAll('.int-badge').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.qa-item').forEach(item=>{
+    const d = item.dataset.diff || 'easy';
+    item.style.display = (level==='all' || d===level) ? 'block' : 'none';
+  });
+}
+
+// ══════════════════════════════════════════════
+//  IMPROVED PROJECTS — GITHUB + RESOURCE LINKS
+// ══════════════════════════════════════════════
+function buildProjectsTab(c){
+  return `
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Build these projects to create a strong portfolio. Starter repos and tutorials linked for each.</p>
+    <div class="proj-grid">${c.projects.map((p,i)=>`
+      <div class="proj-card">
+        <div class="proj-num">Project ${String(i+1).padStart(2,'0')}</div>
+        <div class="proj-title">${p.title}</div>
+        <div class="proj-desc">${p.desc}</div>
+        <div class="proj-tags">
+          ${p.tags.map(t=>`<span class="proj-tag">${t}</span>`).join('')}
+          <span class="proj-diff diff-${p.diff}">${p.diff.charAt(0).toUpperCase()+p.diff.slice(1)}</span>
+        </div>
+        <div class="proj-time">⏱ Est. build time: ${p.diff==='easy'?'1–2 weeks':p.diff==='medium'?'2–4 weeks':'4–8 weeks'}</div>
+        <div class="proj-links">
+          ${p.github ? `<a class="proj-link" href="${p.github}" target="_blank" rel="noopener">⭐ GitHub Starter</a>` : `<a class="proj-link" href="https://github.com/search?q=${encodeURIComponent(p.title.toLowerCase().replace(/\s+/g,'-'))}&type=repositories" target="_blank" rel="noopener">🔍 Find on GitHub</a>`}
+          ${p.tutorial ? `<a class="proj-link" href="${p.tutorial}" target="_blank" rel="noopener">📖 Tutorial</a>` : ''}
+          <a class="proj-link" href="https://www.google.com/search?q=${encodeURIComponent('build '+p.title+' tutorial')}" target="_blank" rel="noopener">🌐 Find Tutorials</a>
+        </div>
+      </div>`).join('')}
+    </div>`;
+}
+
+// ══════════════════════════════════════════════
 //  INIT
 // ══════════════════════════════════════════════
 renderGrid(COURSES);
@@ -1993,7 +2735,7 @@ renderGrid(COURSES);
       const greet = document.getElementById('userGreeting');
       const signout = document.getElementById('signoutBtn');
       if(greet && s.name){
-        greet.textContent = 'Hi, ' + s.name.split(' ')[0] + ' \uD83D\uDC4B';
+        greet.textContent = 'Hi, ' + s.name.split(' ')[0] + ' 👋';
         greet.style.display = 'inline';
       }
       if(signout) signout.style.display = 'inline-block';
