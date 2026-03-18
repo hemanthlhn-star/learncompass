@@ -12,7 +12,35 @@
   --bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--card:#14141e;
   --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
   --text:#f0eff8;--muted:#8b8a9e;
+  --accent1:#7c3aed;--accent2:#06b6d4;
   --font-head:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;
+  --transition-speed:0.25s;
+}
+/* ── THEMES ── */
+[data-theme="midnight"]{
+  --bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--card:#14141e;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
+  --text:#f0eff8;--muted:#8b8a9e;
+}
+[data-theme="ocean"]{
+  --bg:#020c18;--bg2:#041424;--bg3:#071e30;--card:#0a1f35;
+  --border:rgba(6,182,212,0.15);--border2:rgba(6,182,212,0.25);
+  --text:#e0f4ff;--muted:#6aadcc;
+}
+[data-theme="forest"]{
+  --bg:#040e0a;--bg2:#071510;--bg3:#0d2018;--card:#102818;
+  --border:rgba(16,185,129,0.15);--border2:rgba(16,185,129,0.25);
+  --text:#e0fff4;--muted:#5a9e80;
+}
+[data-theme="sunset"]{
+  --bg:#0f080a;--bg2:#180d10;--bg3:#221018;--card:#2a1020;
+  --border:rgba(236,72,153,0.15);--border2:rgba(236,72,153,0.25);
+  --text:#ffe0f0;--muted:#a06080;
+}
+[data-theme="light"]{
+  --bg:#f8f7ff;--bg2:#f0eeff;--bg3:#e8e6ff;--card:#ffffff;
+  --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.14);
+  --text:#1a1830;--muted:#6b6880;
 }
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden;}
 a{color:inherit;text-decoration:none;}
@@ -341,6 +369,166 @@ a{color:inherit;text-decoration:none;}
   color:var(--muted);text-decoration:none;transition:all .2s;background:var(--bg2);}
 .proj-link:hover{color:var(--text);border-color:var(--border);background:var(--bg3);}
 .proj-time{font-size:11px;color:var(--muted);margin-top:6px;}
+
+/* ── SMOOTH THEME TRANSITIONS ── */
+body,header,.header,.course-card,.detail-wrap,.tab-btn,.syl-item,
+.res-card,.prac-card,.qa-item,.proj-card,.plan-config,.fb-modal{
+  transition:background var(--transition-speed),border-color var(--transition-speed),color var(--transition-speed);
+}
+
+/* ── AVATAR BUTTON ── */
+.avatar-btn{
+  width:36px;height:36px;border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-head);font-size:14px;font-weight:700;
+  color:#fff;border:2px solid var(--border2);
+  transition:transform .2s,box-shadow .2s;flex-shrink:0;
+  background:linear-gradient(135deg,#7c3aed,#06b6d4);
+  position:relative;
+}
+.avatar-btn:hover{transform:scale(1.08);box-shadow:0 0 0 3px rgba(124,58,237,.3);}
+.avatar-online{position:absolute;bottom:1px;right:1px;width:9px;height:9px;
+  border-radius:50%;background:#10b981;border:2px solid var(--bg);}
+
+/* ── PROFILE PANEL ── */
+.profile-overlay{
+  position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.5);
+  display:none;align-items:flex-start;justify-content:flex-end;padding:70px 20px 0;
+}
+.profile-overlay.open{display:flex;}
+.profile-panel{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:20px;width:320px;max-height:85vh;
+  overflow-y:auto;animation:slideDown .25s ease;
+}
+@keyframes slideDown{from{opacity:0;transform:translateY(-12px);}to{opacity:1;transform:translateY(0);}}
+
+.pp-header{
+  padding:24px 20px 20px;
+  background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(6,182,212,.1));
+  border-radius:20px 20px 0 0;border-bottom:1px solid var(--border);
+  display:flex;gap:14px;align-items:center;
+}
+.pp-avatar{
+  width:56px;height:56px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-head);font-size:20px;font-weight:800;color:#fff;
+  background:linear-gradient(135deg,#7c3aed,#06b6d4);
+  box-shadow:0 0 20px rgba(124,58,237,.4);
+}
+.pp-name{font-family:var(--font-head);font-size:17px;font-weight:700;margin-bottom:2px;}
+.pp-email{font-size:12px;color:var(--muted);}
+.pp-joined{font-size:11px;color:var(--muted);margin-top:4px;opacity:.7;}
+
+.pp-section{padding:16px 20px;border-bottom:1px solid var(--border);}
+.pp-section-title{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--muted);font-weight:600;margin-bottom:12px;}
+
+/* Progress stats */
+.pp-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.pp-stat{background:var(--bg3);border-radius:10px;padding:10px 8px;text-align:center;}
+.pp-stat-num{font-family:var(--font-head);font-size:20px;font-weight:700;margin-bottom:2px;}
+.pp-stat-lbl{font-size:10px;color:var(--muted);letter-spacing:.3px;}
+
+/* Course progress list */
+.pp-course{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.pp-course-icon{font-size:18px;flex-shrink:0;}
+.pp-course-info{flex:1;min-width:0;}
+.pp-course-name{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pp-course-bar{height:4px;background:var(--border2);border-radius:4px;margin-top:4px;overflow:hidden;}
+.pp-course-fill{height:100%;border-radius:4px;transition:width .6s ease;}
+.pp-course-pct{font-size:11px;color:var(--muted);flex-shrink:0;}
+
+/* Theme switcher */
+.theme-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+.theme-dot{
+  width:100%;aspect-ratio:1;border-radius:10px;cursor:pointer;
+  border:2px solid transparent;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-direction:column;gap:2px;overflow:hidden;
+}
+.theme-dot.active{border-color:#7c3aed;box-shadow:0 0 0 2px rgba(124,58,237,.3);}
+.theme-dot:hover{transform:scale(1.06);}
+.theme-name{font-size:9px;color:rgba(255,255,255,.7);font-weight:500;letter-spacing:.3px;}
+
+/* Goal selector */
+.pp-goals{display:flex;flex-wrap:wrap;gap:6px;}
+.pp-goal{font-size:11px;padding:5px 10px;border-radius:20px;cursor:pointer;
+  border:1px solid var(--border2);color:var(--muted);background:var(--bg3);transition:all .2s;}
+.pp-goal.sel{border-color:#7c3aed;color:#a78bfa;background:rgba(124,58,237,.12);}
+
+/* PP actions */
+.pp-actions{padding:14px 20px;display:flex;flex-direction:column;gap:8px;}
+.pp-btn{width:100%;padding:10px;border-radius:10px;font-size:13px;font-weight:500;
+  cursor:pointer;font-family:var(--font-body);transition:all .2s;text-align:center;}
+.pp-btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--muted);}
+.pp-btn-ghost:hover{color:var(--text);border-color:var(--border);}
+.pp-btn-danger{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#f87171;}
+.pp-btn-danger:hover{background:rgba(239,68,68,.2);}
+
+/* Edit name inline */
+.pp-edit-row{display:flex;gap:8px;align-items:center;margin-top:6px;}
+.pp-edit-input{flex:1;background:var(--bg3);border:1px solid var(--border2);
+  border-radius:8px;color:var(--text);font-family:var(--font-body);
+  font-size:13px;padding:7px 10px;outline:none;}
+.pp-edit-input:focus{border-color:#7c3aed;}
+.pp-edit-save{padding:7px 12px;border:none;border-radius:8px;font-size:12px;
+  background:linear-gradient(135deg,#7c3aed,#06b6d4);color:#fff;cursor:pointer;
+  font-family:var(--font-body);white-space:nowrap;}
+
+/* ── STREAK BANNER ── */
+.streak-banner{
+  display:flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(239,68,68,.08));
+  border:1px solid rgba(245,158,11,.25);border-radius:12px;
+  padding:10px 16px;margin:0 32px 16px;font-size:13px;
+  cursor:pointer;transition:border-color .2s;
+}
+.streak-banner:hover{border-color:rgba(245,158,11,.4);}
+.streak-fire{font-size:20px;}
+.streak-text strong{color:#fcd34d;}
+.streak-text{color:var(--muted);}
+.streak-cta{margin-left:auto;font-size:12px;color:#fcd34d;font-weight:500;}
+
+/* ── SUGGESTION BOX (bottom of page) ── */
+.suggestion-row{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:12px;padding:0 32px 32px;max-width:1100px;margin:0 auto;
+}
+.sug-card{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:16px;cursor:pointer;transition:all .2s;
+}
+.sug-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.sug-icon{font-size:24px;margin-bottom:8px;}
+.sug-title{font-size:13px;font-weight:500;margin-bottom:4px;}
+.sug-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* ── ENHANCED TOAST NOTIFICATIONS ── */
+.toast-container{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  z-index:99999;display:flex;flex-direction:column;gap:8px;pointer-events:none;}
+.toast{
+  background:var(--card);border:1px solid var(--border2);border-radius:12px;
+  padding:12px 20px;font-size:13px;color:var(--text);
+  animation:toastIn .3s ease;white-space:nowrap;
+  box-shadow:0 4px 20px rgba(0,0,0,.4);pointer-events:all;
+}
+.toast.success{border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.1);color:#6ee7b7;}
+.toast.info{border-color:rgba(6,182,212,.4);background:rgba(6,182,212,.1);color:#67e8f9;}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes toastOut{from{opacity:1;}to{opacity:0;transform:translateY(10px);}}
+
+/* ── COURSE CARD PROGRESS BADGE ── */
+.cc-progress{
+  position:absolute;top:14px;right:14px;
+  font-size:10px;padding:3px 8px;border-radius:10px;font-weight:600;
+  background:rgba(16,185,129,.15);color:#6ee7b7;border:1px solid rgba(16,185,129,.3);
+}
+
+/* light theme overrides */
+[data-theme="light"] .logo span{background:linear-gradient(135deg,#6d28d9,#0891b2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+[data-theme="light"] .mesh-bg{background:radial-gradient(ellipse 60% 40% at 20% 20%,rgba(124,58,237,.06) 0%,transparent 60%),radial-gradient(ellipse 40% 50% at 80% 80%,rgba(6,182,212,.04) 0%,transparent 60%);}
+[data-theme="light"] .header{background:rgba(248,247,255,.92);}
 </style>
 </head>
 <body>
@@ -390,11 +578,86 @@ a{color:inherit;text-decoration:none;}
   <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer;">Learn<span>Compass</span></div>
   <div class="header-right">
     <button class="back-btn" id="backBtn" onclick="showHome()" style="display:none;">← All Courses</button>
-    <span id="userGreeting" style="font-size:13px;color:var(--muted);display:none;"></span>
     <button class="explore-btn" id="exploreBtn" onclick="window.location.href='index.html'">🏠 Home</button>
-    <button class="signout-btn" id="signoutBtn" onclick="signOutApp()" style="display:none;">Sign out</button>
+    <div class="avatar-btn" id="avatarBtn" onclick="openProfile()" style="display:none;" title="Your Profile">
+      <span id="avatarInitials">?</span>
+      <div class="avatar-online"></div>
+    </div>
   </div>
 </header>
+
+<!-- PROFILE PANEL -->
+<div class="profile-overlay" id="profileOverlay" onclick="if(event.target===this)closeProfile()">
+  <div class="profile-panel" id="profilePanel">
+    <!-- Header -->
+    <div class="pp-header">
+      <div class="pp-avatar" id="ppAvatar">?</div>
+      <div>
+        <div class="pp-name" id="ppName">User</div>
+        <div class="pp-email" id="ppEmail"></div>
+        <div class="pp-joined" id="ppJoined"></div>
+      </div>
+    </div>
+
+    <!-- Edit Name -->
+    <div class="pp-section">
+      <div class="pp-section-title">Display Name</div>
+      <div class="pp-edit-row">
+        <input class="pp-edit-input" id="ppNameInput" placeholder="Your name" type="text"/>
+        <button class="pp-edit-save" onclick="saveName()">Save</button>
+      </div>
+    </div>
+
+    <!-- Progress Stats -->
+    <div class="pp-section">
+      <div class="pp-section-title">Your Progress</div>
+      <div class="pp-stats">
+        <div class="pp-stat"><div class="pp-stat-num" id="ppDaysDone" style="color:#6ee7b7">0</div><div class="pp-stat-lbl">Days Done</div></div>
+        <div class="pp-stat"><div class="pp-stat-num" id="ppCoursesProg" style="color:#a78bfa">0</div><div class="pp-stat-lbl">In Progress</div></div>
+        <div class="pp-stat"><div class="pp-stat-num" id="ppStreak" style="color:#fcd34d">0</div><div class="pp-stat-lbl">Day Streak</div></div>
+      </div>
+    </div>
+
+    <!-- Course Progress -->
+    <div class="pp-section" id="ppCourseList">
+      <div class="pp-section-title">Course Progress</div>
+    </div>
+
+    <!-- Theme Switcher -->
+    <div class="pp-section">
+      <div class="pp-section-title">App Theme</div>
+      <div class="theme-grid" id="themeGrid">
+        <div class="theme-dot active" data-theme="midnight" onclick="setTheme('midnight')" style="background:linear-gradient(135deg,#0a0a0f,#1a1a24)"><span class="theme-name">Dark</span></div>
+        <div class="theme-dot" data-theme="ocean" onclick="setTheme('ocean')" style="background:linear-gradient(135deg,#020c18,#071e30)"><span class="theme-name">Ocean</span></div>
+        <div class="theme-dot" data-theme="forest" onclick="setTheme('forest')" style="background:linear-gradient(135deg,#040e0a,#0d2018)"><span class="theme-name">Forest</span></div>
+        <div class="theme-dot" data-theme="sunset" onclick="setTheme('sunset')" style="background:linear-gradient(135deg,#0f080a,#221018)"><span class="theme-name">Sunset</span></div>
+        <div class="theme-dot" data-theme="light" onclick="setTheme('light')" style="background:linear-gradient(135deg,#f8f7ff,#e8e6ff);border:1px solid rgba(0,0,0,.1)"><span class="theme-name" style="color:rgba(0,0,0,.5)">Light</span></div>
+      </div>
+    </div>
+
+    <!-- Learning Goal -->
+    <div class="pp-section">
+      <div class="pp-section-title">Learning Goal</div>
+      <div class="pp-goals" id="ppGoals">
+        <div class="pp-goal sel" onclick="toggleGoal(this)">Get a job</div>
+        <div class="pp-goal" onclick="toggleGoal(this)">Upskill</div>
+        <div class="pp-goal" onclick="toggleGoal(this)">Freelancing</div>
+        <div class="pp-goal" onclick="toggleGoal(this)">Side project</div>
+        <div class="pp-goal" onclick="toggleGoal(this)">Curiosity</div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="pp-actions">
+      <button class="pp-btn pp-btn-ghost" onclick="exportProgress()">📥 Export my progress</button>
+      <button class="pp-btn pp-btn-ghost" onclick="openFeedback();closeProfile()">💬 Send feedback</button>
+      <button class="pp-btn pp-btn-danger" onclick="confirmSignOut()">Sign out</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
 
 <!-- HOME PAGE -->
 <div class="page active" id="homePage">
@@ -412,10 +675,44 @@ a{color:inherit;text-decoration:none;}
       <div class="stat"><div class="stat-num" style="color:#fcd34d">8</div><div class="stat-lbl">Tabs Per Course</div></div>
     </div>
   </section>
+  <!-- STREAK BANNER -->
+  <div class="streak-banner" id="streakBanner" onclick="showHome()" style="display:none;">
+    <span class="streak-fire">🔥</span>
+    <span class="streak-text"><strong id="streakCount">0</strong> day streak — keep it up!</span>
+    <span class="streak-cta">Study today →</span>
+  </div>
+
   <section class="section" style="padding-top:0;">
     <div class="sec-label">All Courses</div>
     <div class="course-grid" id="courseGrid"></div>
   </section>
+
+  <!-- SUGGESTIONS -->
+  <div style="max-width:1100px;margin:0 auto;padding:0 32px 8px;">
+    <div style="font-size:12px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-weight:500;margin-bottom:16px;">💡 Quick Actions</div>
+  </div>
+  <div class="suggestion-row">
+    <div class="sug-card" onclick="openFeedback()">
+      <div class="sug-icon">💬</div>
+      <div class="sug-title">Share Feedback</div>
+      <div class="sug-desc">Tell us what to improve or report a bug</div>
+    </div>
+    <div class="sug-card" onclick="openProfile()">
+      <div class="sug-icon">🎨</div>
+      <div class="sug-title">Change Theme</div>
+      <div class="sug-desc">5 beautiful themes — Dark, Ocean, Forest, Sunset, Light</div>
+    </div>
+    <div class="sug-card" onclick="showRandomCourse()">
+      <div class="sug-icon">🎲</div>
+      <div class="sug-title">Surprise Me</div>
+      <div class="sug-desc">Open a random course you haven't explored yet</div>
+    </div>
+    <div class="sug-card" onclick="openProfile()">
+      <div class="sug-icon">📊</div>
+      <div class="sug-title">View Progress</div>
+      <div class="sug-desc">See your study stats and course completion</div>
+    </div>
+  </div>
   <div class="page-footer">Built with ❤ for learners everywhere &nbsp;·&nbsp; LearnCompass 2025 · Made by Hemanth Naidu Latchireddi</div>
 </div>
 
@@ -2260,8 +2557,12 @@ function filterCourses(q) {
 //  HOME GRID
 // ══════════════════════════════════════════════
 function renderGrid(list) {
-  document.getElementById('courseGrid').innerHTML = list.map(c => `
+  document.getElementById('courseGrid').innerHTML = list.map(c => {
+    const pct = getCourseProgress(c);
+    const progressBadge = pct > 0 ? `<div class="cc-progress">${pct}% done</div>` : '';
+    return `
     <div class="course-card ${c.color}" onclick="openCourse('${c.id}')">
+      ${progressBadge}
       <div class="card-icon">${c.icon}</div>
       <div class="card-title">${c.title}</div>
       <div class="card-desc">${c.desc}</div>
@@ -2270,8 +2571,8 @@ function renderGrid(list) {
         <span class="tag dur">⏱ ${c.duration}</span>
         ${c.hot ? '<span class="tag hot">🔥 Trending</span>' : ''}
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 // ══════════════════════════════════════════════
@@ -2723,27 +3024,243 @@ function buildProjectsTab(c){
 // ══════════════════════════════════════════════
 renderGrid(COURSES);
 
-// Load user session greeting
-(function(){
-  try{
-    const sess = localStorage.getItem('lc_session');
-    if(sess){
-      const s = JSON.parse(sess);
-      const greet = document.getElementById('userGreeting');
-      const signout = document.getElementById('signoutBtn');
-      if(greet && s.name){
-        greet.textContent = 'Hi, ' + s.name.split(' ')[0] + ' 👋';
-        greet.style.display = 'inline';
-      }
-      if(signout) signout.style.display = 'inline-block';
-    }
-  }catch(e){}
-})();
+// ══════════════════════════════════════════════
+//  THEME SYSTEM
+// ══════════════════════════════════════════════
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('lc_theme', theme);
+  document.querySelectorAll('.theme-dot').forEach(d => {
+    d.classList.toggle('active', d.dataset.theme === theme);
+  });
+  showToast('Theme changed to ' + theme.charAt(0).toUpperCase() + theme.slice(1), 'info');
+}
 
-function signOutApp(){
+function loadTheme() {
+  const saved = localStorage.getItem('lc_theme') || 'midnight';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.querySelectorAll('.theme-dot').forEach(d => {
+    d.classList.toggle('active', d.dataset.theme === saved);
+  });
+}
+
+// ══════════════════════════════════════════════
+//  TOAST NOTIFICATIONS
+// ══════════════════════════════════════════════
+function showToast(msg, type='info') {
+  const container = document.getElementById('toastContainer');
+  if (!container) return;
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.textContent = msg;
+  container.appendChild(t);
+  setTimeout(() => {
+    t.style.animation = 'toastOut .3s ease forwards';
+    setTimeout(() => t.remove(), 300);
+  }, 2500);
+}
+
+// ══════════════════════════════════════════════
+//  PROGRESS HELPERS
+// ══════════════════════════════════════════════
+function getCourseProgress(c) {
+  if (!c.planPhases) return 0;
+  const total = c.planPhases.reduce((s,p) => s + p.days.filter(d => d.t !== 'rest').length, 0);
+  const done = Object.keys(planDone).filter(k => k.startsWith(c.id + '_') && planDone[k]).length;
+  return total > 0 ? Math.round(done / total * 100) : 0;
+}
+
+function getTotalDaysDone() {
+  return Object.keys(planDone).filter(k => planDone[k]).length;
+}
+
+function getStreak() {
+  // Simple streak: days in a row where at least one task was done
+  // We track via lc_activity (date → count)
+  const activity = JSON.parse(localStorage.getItem('lc_activity') || '{}');
+  const today = new Date().toISOString().split('T')[0];
+  let streak = 0;
+  let cur = new Date();
+  while (true) {
+    const d = cur.toISOString().split('T')[0];
+    if (activity[d]) { streak++; cur.setDate(cur.getDate() - 1); }
+    else break;
+  }
+  return streak;
+}
+
+function recordActivity() {
+  const today = new Date().toISOString().split('T')[0];
+  const activity = JSON.parse(localStorage.getItem('lc_activity') || '{}');
+  activity[today] = (activity[today] || 0) + 1;
+  localStorage.setItem('lc_activity', JSON.stringify(activity));
+}
+
+// ══════════════════════════════════════════════
+//  PROFILE PANEL
+// ══════════════════════════════════════════════
+function openProfile() {
+  refreshProfileData();
+  document.getElementById('profileOverlay').classList.add('open');
+}
+
+function closeProfile() {
+  document.getElementById('profileOverlay').classList.remove('open');
+}
+
+function refreshProfileData() {
+  try {
+    const sess = JSON.parse(localStorage.getItem('lc_session') || '{}');
+    const name = sess.name || 'Learner';
+    const email = sess.email || '';
+    const initials = name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+
+    document.getElementById('ppAvatar').textContent = initials;
+    document.getElementById('ppName').textContent = name;
+    document.getElementById('ppEmail').textContent = email;
+    document.getElementById('ppNameInput').value = name;
+
+    const joined = sess.joined || new Date().toISOString().split('T')[0];
+    document.getElementById('ppJoined').textContent = 'Joined ' + new Date(joined).toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric'});
+
+    // Stats
+    document.getElementById('ppDaysDone').textContent = getTotalDaysDone();
+    document.getElementById('ppStreak').textContent = getStreak();
+    const inProgress = COURSES.filter(c => getCourseProgress(c) > 0).length;
+    document.getElementById('ppCoursesProg').textContent = inProgress;
+
+    // Course progress list
+    const list = document.getElementById('ppCourseList');
+    const activeCourses = COURSES.filter(c => getCourseProgress(c) > 0).sort((a,b) => getCourseProgress(b) - getCourseProgress(a));
+    const displayCourses = activeCourses.length > 0 ? activeCourses : COURSES.slice(0,3);
+    list.innerHTML = '<div class="pp-section-title">Course Progress</div>' +
+      displayCourses.slice(0,5).map(c => {
+        const pct = getCourseProgress(c);
+        return `<div class="pp-course">
+          <div class="pp-course-icon">${c.icon}</div>
+          <div class="pp-course-info">
+            <div class="pp-course-name">${c.title}</div>
+            <div class="pp-course-bar"><div class="pp-course-fill" style="width:${pct}%;background:${c.accent}"></div></div>
+          </div>
+          <div class="pp-course-pct">${pct}%</div>
+        </div>`;
+      }).join('') +
+      (activeCourses.length === 0 ? '<div style="font-size:12px;color:var(--muted);padding:4px 0">Start a course to track progress here.</div>' : '');
+
+    // Restore saved goals
+    const savedGoals = JSON.parse(localStorage.getItem('lc_goals') || '["Get a job"]');
+    document.querySelectorAll('.pp-goal').forEach(g => {
+      g.classList.toggle('sel', savedGoals.includes(g.textContent));
+    });
+
+  } catch(e) {}
+}
+
+function saveName() {
+  const newName = document.getElementById('ppNameInput').value.trim();
+  if (!newName) return;
+  try {
+    const sess = JSON.parse(localStorage.getItem('lc_session') || '{}');
+    sess.name = newName;
+    localStorage.setItem('lc_session', JSON.stringify(sess));
+    document.getElementById('ppName').textContent = newName;
+    document.getElementById('ppAvatar').textContent = newName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('avatarInitials').textContent = newName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    initSessionHeader();
+    showToast('Name updated!', 'success');
+  } catch(e) {}
+}
+
+function toggleGoal(el) {
+  el.classList.toggle('sel');
+  const goals = [...document.querySelectorAll('.pp-goal.sel')].map(g => g.textContent);
+  localStorage.setItem('lc_goals', JSON.stringify(goals));
+}
+
+function exportProgress() {
+  const data = {
+    user: JSON.parse(localStorage.getItem('lc_session') || '{}'),
+    progress: planDone,
+    goals: JSON.parse(localStorage.getItem('lc_goals') || '[]'),
+    activity: JSON.parse(localStorage.getItem('lc_activity') || '{}'),
+    exported: new Date().toISOString()
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'learncompass-progress.json';
+  a.click();
+  showToast('Progress exported!', 'success');
+}
+
+function confirmSignOut() {
+  if (confirm('Are you sure you want to sign out?')) {
+    localStorage.removeItem('lc_session');
+    window.location.href = 'index.html';
+  }
+}
+
+function signOutApp() {
   localStorage.removeItem('lc_session');
   window.location.href = 'index.html';
 }
+
+// ══════════════════════════════════════════════
+//  SURPRISE ME
+// ══════════════════════════════════════════════
+function showRandomCourse() {
+  const unexplored = COURSES.filter(c => getCourseProgress(c) === 0);
+  const pool = unexplored.length > 0 ? unexplored : COURSES;
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  openCourse(pick.id);
+  showToast('Opening ' + pick.title + ' for you!', 'info');
+}
+
+// ══════════════════════════════════════════════
+//  SESSION INIT
+// ══════════════════════════════════════════════
+function initSessionHeader() {
+  try {
+    const sess = localStorage.getItem('lc_session');
+    if (sess) {
+      const s = JSON.parse(sess);
+      const avatarBtn = document.getElementById('avatarBtn');
+      const initials = (s.name || 'U').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+      if (avatarBtn) {
+        document.getElementById('avatarInitials').textContent = initials;
+        avatarBtn.style.display = 'flex';
+      }
+      // Show streak banner if streak > 0
+      const streak = getStreak();
+      if (streak > 0) {
+        const banner = document.getElementById('streakBanner');
+        if (banner) {
+          document.getElementById('streakCount').textContent = streak;
+          banner.style.display = 'flex';
+        }
+      }
+      // Show progress badges on course cards
+      renderGrid(COURSES);
+    }
+  } catch(e) {}
+}
+
+// record activity when a study day is checked
+const _origToggleDay = toggleDay;
+function toggleDay(courseId, pi, di) {
+  _origToggleDay(courseId, pi, di);
+  const key = courseId + '_' + pi + '_' + di;
+  if (planDone[key]) {
+    recordActivity();
+    const streak = getStreak();
+    if (streak > 0) showToast('🔥 ' + streak + ' day streak!', 'success');
+    renderGrid(COURSES); // refresh progress badges
+  }
+}
+
+// ── BOOT ──────────────────────────────────────
+loadTheme();
+initSessionHeader();
 </script>
 </body>
 </html>
