@@ -375,6 +375,40 @@ footer{
 .fb-submit{flex:1;padding:11px;border:none;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#06b6d4);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font-body);}
 .fb-cancel{padding:11px 16px;border:1px solid var(--border2);border-radius:10px;background:transparent;color:var(--muted);font-size:13px;cursor:pointer;font-family:var(--font-body);}
 .fb-success{text-align:center;padding:16px 0;}
+
+/* ── OTP / RESET PASSWORD PANEL ── */
+.otp-panel{display:none;}
+.otp-panel.active{display:block;}
+.otp-input-row{display:flex;gap:8px;justify-content:center;margin:16px 0;}
+.otp-digit{
+  width:48px;height:56px;text-align:center;font-size:22px;font-weight:700;
+  background:var(--bg3);border:1.5px solid var(--border2);border-radius:10px;
+  color:var(--text);font-family:var(--font-head);outline:none;
+  transition:border-color .2s;
+}
+.otp-digit:focus{border-color:var(--accent1);}
+.otp-timer{font-size:12px;color:var(--muted);text-align:center;margin-bottom:12px;}
+.otp-timer span{color:var(--c);font-weight:600;}
+.resend-link{color:var(--c);cursor:pointer;font-size:12px;}
+.resend-link:hover{text-decoration:underline;}
+.strength-bar{height:4px;border-radius:4px;background:var(--border2);margin-top:6px;overflow:hidden;}
+.strength-fill{height:100%;border-radius:4px;transition:width .3s,background .3s;}
+.strength-label{font-size:11px;margin-top:4px;}
+/* Change password in profile */
+.cp-row{display:flex;flex-direction:column;gap:8px;}
+.cp-row .form-input{
+  width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;
+  color:var(--text);font-family:var(--font-body);font-size:13px;padding:9px 12px;outline:none;
+}
+.cp-row .form-input:focus{border-color:#7c3aed;}
+.cp-row .form-input::placeholder{color:var(--muted);}
+.cp-save-btn{
+  padding:9px;border:none;border-radius:8px;
+  background:linear-gradient(135deg,#7c3aed,#06b6d4);
+  color:#fff;font-size:13px;font-weight:600;cursor:pointer;
+  font-family:var(--font-body);transition:opacity .2s;
+}
+.cp-save-btn:hover{opacity:.88;}
 </style>
 </head>
 <body>
@@ -714,12 +748,71 @@ footer{
           <div class="form-group">
             <label class="form-label" style="display:flex;justify-content:space-between;">
               Password
-              <a style="color:var(--c);cursor:pointer;font-weight:400;" onclick="forgotPassword()">Forgot password?</a>
+              <a style="color:var(--c);cursor:pointer;font-weight:400;" onclick="showForgotPanel()">Forgot password?</a>
             </label>
             <input class="form-input" type="password" id="loginPass" placeholder="Your password" autocomplete="current-password"/>
             <div class="form-error" id="loginPassErr">Password must be at least 6 characters.</div>
           </div>
           <button class="btn-auth" onclick="handleLogin()">Sign in to LearnCompass</button>
+        </div>
+
+        <!-- FORGOT PASSWORD — STEP 1: enter email -->
+        <div id="forgotPanel" class="otp-panel">
+          <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">
+            Enter your registered email and we will send a 6-digit OTP.
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email address</label>
+            <input class="form-input" type="email" id="resetEmail" placeholder="you@example.com"/>
+            <div class="form-error" id="resetEmailErr">Email not found in our records.</div>
+          </div>
+          <button class="btn-auth" onclick="sendOTP()">Send OTP →</button>
+          <div style="text-align:center;margin-top:12px;">
+            <a style="font-size:13px;color:var(--c);cursor:pointer;" onclick="hideForgotPanel()">← Back to sign in</a>
+          </div>
+        </div>
+
+        <!-- FORGOT PASSWORD — STEP 2: enter OTP -->
+        <div id="otpPanel" class="otp-panel">
+          <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">
+            Enter the 6-digit OTP sent to <strong id="otpEmailDisplay" style="color:var(--text)"></strong>
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:14px;">
+            (In this demo the OTP is shown in a popup since there is no email server)
+          </div>
+          <div class="otp-input-row">
+            <input class="otp-digit" maxlength="1" id="otp0" oninput="otpMove(this,1)" onkeydown="otpBack(event,this,null)"/>
+            <input class="otp-digit" maxlength="1" id="otp1" oninput="otpMove(this,2)" onkeydown="otpBack(event,this,0)"/>
+            <input class="otp-digit" maxlength="1" id="otp2" oninput="otpMove(this,3)" onkeydown="otpBack(event,this,1)"/>
+            <input class="otp-digit" maxlength="1" id="otp3" oninput="otpMove(this,4)" onkeydown="otpBack(event,this,2)"/>
+            <input class="otp-digit" maxlength="1" id="otp4" oninput="otpMove(this,5)" onkeydown="otpBack(event,this,3)"/>
+            <input class="otp-digit" maxlength="1" id="otp5" oninput="otpMove(this,-1)" onkeydown="otpBack(event,this,4)"/>
+          </div>
+          <div class="otp-timer">OTP expires in <span id="otpTimer">10:00</span> &nbsp;·&nbsp; <a class="resend-link" onclick="resendOTP()">Resend OTP</a></div>
+          <div class="form-error" id="otpErr" style="text-align:center;margin-bottom:10px;">Incorrect OTP. Please try again.</div>
+          <button class="btn-auth" onclick="verifyOTP()">Verify OTP →</button>
+          <div style="text-align:center;margin-top:12px;">
+            <a style="font-size:13px;color:var(--c);cursor:pointer;" onclick="hideForgotPanel()">← Back to sign in</a>
+          </div>
+        </div>
+
+        <!-- FORGOT PASSWORD — STEP 3: set new password -->
+        <div id="newPassPanel" class="otp-panel">
+          <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">
+            OTP verified! Set your new password below.
+          </div>
+          <div class="form-group">
+            <label class="form-label">New Password</label>
+            <input class="form-input" type="password" id="newPass1" placeholder="At least 8 characters" oninput="checkPassStrength(this.value)"/>
+            <div class="strength-bar"><div class="strength-fill" id="strengthFill" style="width:0%"></div></div>
+            <div class="strength-label" id="strengthLabel" style="color:var(--muted)"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Confirm Password</label>
+            <input class="form-input" type="password" id="newPass2" placeholder="Repeat password"/>
+            <div class="form-error" id="newPassErr">Passwords do not match.</div>
+          </div>
+          <button class="btn-auth" onclick="setNewPassword()">Set New Password →</button>
         </div>
 
         <!-- SIGNUP FORM -->
@@ -883,7 +976,7 @@ function handleLogin(){
     document.getElementById('loginEmailErr').textContent='No account found with this email.';
     return; }
   if(users[email].pass !== btoa(pass)){ showErr('loginPassErr','loginPass');
-    document.getElementById('loginPassErr').textContent='Incorrect password.';
+    document.getElementById('loginPassErr').innerHTML='Incorrect password. <a style="color:var(--c);cursor:pointer;" onclick="showForgotPanel()">Reset it →</a>';
     return; }
 
   localStorage.setItem('lc_session', JSON.stringify({email, name:users[email].name}));
@@ -929,8 +1022,158 @@ function socialLogin(provider){
   launchApp(name);
 }
 
-function forgotPassword(){
-  alert('Password reset: in a production app this would send an email. For now, create a new account or contact support.');
+// ══════════════════════════════
+//  OTP PASSWORD RESET
+// ══════════════════════════════
+let otpCode = '';
+let otpInterval = null;
+let resetTargetEmail = '';
+
+function showForgotPanel() {
+  document.getElementById('loginForm').style.display = 'none';
+  document.getElementById('forgotPanel').classList.add('active');
+  document.getElementById('authTitle').textContent = 'Reset password';
+  document.getElementById('authSub').textContent = 'We will send a one-time password to your email.';
+  clearErrors();
+}
+
+function hideForgotPanel() {
+  ['forgotPanel','otpPanel','newPassPanel'].forEach(id => {
+    document.getElementById(id).classList.remove('active');
+  });
+  document.getElementById('loginForm').style.display = 'block';
+  document.getElementById('authTitle').textContent = 'Welcome back';
+  document.getElementById('authSub').textContent = 'Sign in to continue your learning journey.';
+  clearErrors();
+  if (otpInterval) { clearInterval(otpInterval); otpInterval = null; }
+}
+
+function sendOTP() {
+  const email = document.getElementById('resetEmail').value.trim();
+  const err = document.getElementById('resetEmailErr');
+  err.style.display = 'none';
+  if (!email || !email.includes('@')) { err.textContent = 'Please enter a valid email.'; err.style.display = 'block'; return; }
+  const users = JSON.parse(localStorage.getItem('lc_users') || '{}');
+  if (!users[email]) { err.textContent = 'No account found with this email. Please sign up first.'; err.style.display = 'block'; return; }
+  resetTargetEmail = email;
+  // Generate 6-digit OTP
+  otpCode = String(Math.floor(100000 + Math.random() * 900000));
+  // In a real app this would send an email. Here we show it in an alert.
+  alert('\uD83D\uDCE7 OTP sent!\n\nIn a real deployment this goes to your email.\nFor demo purposes, your OTP is:\n\n' + otpCode + '\n\nThis OTP expires in 10 minutes.');
+  // Switch to OTP panel
+  document.getElementById('forgotPanel').classList.remove('active');
+  document.getElementById('otpEmailDisplay').textContent = email;
+  document.getElementById('otpPanel').classList.add('active');
+  document.getElementById('otpErr').style.display = 'none';
+  // Clear OTP inputs
+  for (let i = 0; i < 6; i++) { const el = document.getElementById('otp' + i); if (el) el.value = ''; }
+  document.getElementById('otp0').focus();
+  // Start timer
+  startOTPTimer(600);
+}
+
+function resendOTP() {
+  otpCode = String(Math.floor(100000 + Math.random() * 900000));
+  alert('\uD83D\uDCE7 New OTP sent!\n\nYour new OTP is: ' + otpCode);
+  for (let i = 0; i < 6; i++) { const el = document.getElementById('otp' + i); if (el) el.value = ''; }
+  document.getElementById('otp0').focus();
+  startOTPTimer(600);
+}
+
+function startOTPTimer(seconds) {
+  if (otpInterval) clearInterval(otpInterval);
+  let remaining = seconds;
+  function tick() {
+    const m = Math.floor(remaining / 60).toString().padStart(2,'0');
+    const s = (remaining % 60).toString().padStart(2,'0');
+    const el = document.getElementById('otpTimer');
+    if (el) el.textContent = m + ':' + s;
+    if (remaining <= 0) {
+      clearInterval(otpInterval);
+      if (el) el.textContent = 'Expired';
+    }
+    remaining--;
+  }
+  tick();
+  otpInterval = setInterval(tick, 1000);
+}
+
+function otpMove(el, nextIndex) {
+  if (el.value.length === 1 && nextIndex >= 0) {
+    const next = document.getElementById('otp' + nextIndex);
+    if (next) next.focus();
+  }
+}
+
+function otpBack(e, el, prevIndex) {
+  if (e.key === 'Backspace' && !el.value && prevIndex !== null) {
+    const prev = document.getElementById('otp' + prevIndex);
+    if (prev) { prev.value = ''; prev.focus(); }
+  }
+}
+
+function verifyOTP() {
+  const entered = [0,1,2,3,4,5].map(i => {
+    const el = document.getElementById('otp' + i);
+    return el ? el.value : '';
+  }).join('');
+  const err = document.getElementById('otpErr');
+  if (entered !== otpCode) {
+    err.style.display = 'block';
+    document.getElementById('otp0').focus();
+    return;
+  }
+  err.style.display = 'none';
+  if (otpInterval) { clearInterval(otpInterval); }
+  document.getElementById('otpPanel').classList.remove('active');
+  document.getElementById('newPassPanel').classList.add('active');
+  document.getElementById('authTitle').textContent = 'New password';
+  document.getElementById('authSub').textContent = 'Choose a strong password for your account.';
+  document.getElementById('newPass1').focus();
+}
+
+function checkPassStrength(val) {
+  const fill = document.getElementById('strengthFill');
+  const label = document.getElementById('strengthLabel');
+  if (!fill || !label) return;
+  let score = 0;
+  if (val.length >= 8) score++;
+  if (/[A-Z]/.test(val)) score++;
+  if (/[0-9]/.test(val)) score++;
+  if (/[^A-Za-z0-9]/.test(val)) score++;
+  const configs = [
+    {w:'0%', c:'transparent', t:''},
+    {w:'25%', c:'#ef4444', t:'Weak'},
+    {w:'50%', c:'#f59e0b', t:'Fair'},
+    {w:'75%', c:'#06b6d4', t:'Good'},
+    {w:'100%', c:'#10b981', t:'Strong'},
+  ];
+  const cfg = configs[score];
+  fill.style.width = cfg.w;
+  fill.style.background = cfg.c;
+  label.textContent = cfg.t;
+  label.style.color = cfg.c;
+}
+
+function setNewPassword() {
+  const p1 = document.getElementById('newPass1').value;
+  const p2 = document.getElementById('newPass2').value;
+  const err = document.getElementById('newPassErr');
+  err.style.display = 'none';
+  if (p1.length < 8) { err.textContent = 'Password must be at least 8 characters.'; err.style.display = 'block'; return; }
+  if (p1 !== p2) { err.textContent = 'Passwords do not match.'; err.style.display = 'block'; return; }
+  // Save new password
+  const users = JSON.parse(localStorage.getItem('lc_users') || '{}');
+  if (users[resetTargetEmail]) {
+    users[resetTargetEmail].pass = btoa(p1);
+    localStorage.setItem('lc_users', JSON.stringify(users));
+  }
+  document.getElementById('newPassPanel').classList.remove('active');
+  hideForgotPanel();
+  const s = document.getElementById('formSuccess');
+  s.textContent = '\u2713 Password reset successfully! You can now sign in with your new password.';
+  s.style.display = 'block';
+  setTimeout(() => { s.style.display = 'none'; }, 4000);
 }
 
 // ══════════════════════════════
