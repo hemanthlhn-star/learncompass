@@ -529,6 +529,50 @@ body,header,.header,.course-card,.detail-wrap,.tab-btn,.syl-item,
 [data-theme="light"] .logo span{background:linear-gradient(135deg,#6d28d9,#0891b2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 [data-theme="light"] .mesh-bg{background:radial-gradient(ellipse 60% 40% at 20% 20%,rgba(124,58,237,.06) 0%,transparent 60%),radial-gradient(ellipse 40% 50% at 80% 80%,rgba(6,182,212,.04) 0%,transparent 60%);}
 [data-theme="light"] .header{background:rgba(248,247,255,.92);}
+
+/* ── CHANGE PASSWORD IN PROFILE ── */
+.cp-section{display:flex;flex-direction:column;gap:8px;}
+.cp-input{
+  width:100%;background:var(--bg2);border:1px solid var(--border2);border-radius:8px;
+  color:var(--text);font-family:var(--font-body);font-size:13px;padding:9px 12px;outline:none;
+  transition:border-color .2s;
+}
+.cp-input:focus{border-color:#7c3aed;}
+.cp-input::placeholder{color:var(--muted);}
+.cp-save{width:100%;padding:9px;border:none;border-radius:8px;margin-top:2px;
+  background:linear-gradient(135deg,#7c3aed,#06b6d4);color:#fff;font-size:13px;
+  font-weight:600;cursor:pointer;font-family:var(--font-body);transition:opacity .2s;}
+.cp-save:hover{opacity:.88;}
+.cp-msg{font-size:12px;text-align:center;margin-top:6px;display:none;}
+
+/* ── SURPRISE ME MODAL ── */
+.surprise-overlay{
+  position:fixed;inset:0;z-index:10001;background:rgba(0,0,0,.65);
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.surprise-overlay.open{display:flex;}
+.surprise-modal{
+  background:var(--card);border:1px solid var(--border2);border-radius:22px;
+  padding:32px 28px;width:100%;max-width:400px;text-align:center;
+  animation:popIn .3s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popIn{from{opacity:0;transform:scale(.88);}to{opacity:1;transform:scale(1);}}
+.surprise-icon{font-size:56px;margin-bottom:16px;line-height:1;}
+.surprise-title{font-family:var(--font-head);font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:8px;}
+.surprise-reason{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:24px;}
+.surprise-reason strong{color:var(--text);}
+.surprise-tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;}
+.surprise-tag{font-size:11px;padding:4px 10px;border-radius:20px;background:var(--bg3);
+  border:1px solid var(--border2);color:var(--muted);}
+.surprise-btns{display:flex;gap:10px;}
+.surprise-go{flex:1;padding:12px;border:none;border-radius:12px;font-size:14px;font-weight:600;
+  background:linear-gradient(135deg,#7c3aed,#06b6d4);color:#fff;cursor:pointer;
+  font-family:var(--font-body);transition:opacity .2s;}
+.surprise-go:hover{opacity:.88;}
+.surprise-skip{flex:0;padding:12px 16px;border:1px solid var(--border2);border-radius:12px;
+  font-size:13px;color:var(--muted);background:transparent;cursor:pointer;
+  font-family:var(--font-body);transition:all .2s;}
+.surprise-skip:hover{color:var(--text);}
 </style>
 </head>
 <body>
@@ -647,6 +691,21 @@ body,header,.header,.course-card,.detail-wrap,.tab-btn,.syl-item,
       </div>
     </div>
 
+    <!-- Change Password -->
+    <div class="pp-section">
+      <div class="pp-section-title">Change Password</div>
+      <div class="cp-section">
+        <input class="cp-input" type="password" id="cpCurrent" placeholder="Current password"/>
+        <input class="cp-input" type="password" id="cpNew" placeholder="New password (min 8 chars)" oninput="cpStrength(this.value)"/>
+        <div class="strength-bar" style="height:3px;background:var(--border2);border-radius:3px;overflow:hidden;">
+          <div id="cpStrengthFill" style="height:100%;border-radius:3px;transition:width .3s,background .3s;width:0%"></div>
+        </div>
+        <input class="cp-input" type="password" id="cpConfirm" placeholder="Confirm new password"/>
+        <button class="cp-save" onclick="changePassword()">Update Password</button>
+        <div class="cp-msg" id="cpMsg"></div>
+      </div>
+    </div>
+
     <!-- Actions -->
     <div class="pp-actions">
       <button class="pp-btn pp-btn-ghost" onclick="exportProgress()">📥 Export my progress</button>
@@ -658,6 +717,20 @@ body,header,.header,.course-card,.detail-wrap,.tab-btn,.syl-item,
 
 <!-- TOAST CONTAINER -->
 <div class="toast-container" id="toastContainer"></div>
+
+<!-- SURPRISE ME MODAL -->
+<div class="surprise-overlay" id="surpriseOverlay" onclick="if(event.target===this)closeSurprise()">
+  <div class="surprise-modal">
+    <div class="surprise-icon" id="surpriseIcon">🎲</div>
+    <div class="surprise-title" id="surpriseTitle">Course Title</div>
+    <div class="surprise-reason" id="surpriseReason">Reason text</div>
+    <div class="surprise-tags" id="surpriseTags"></div>
+    <div class="surprise-btns">
+      <button class="surprise-skip" onclick="rerollSurprise()">🔄 Different one</button>
+      <button class="surprise-go" onclick="goSurprise()">Let&#39;s go! →</button>
+    </div>
+  </div>
+</div>
 
 <!-- HOME PAGE -->
 <div class="page active" id="homePage">
@@ -2784,10 +2857,20 @@ function renderPlanCal(c) {
 }
 
 function toggleDay(courseId, pi, di) {
-  const key = courseId+'_'+pi+'_'+di;
-  planDone[key] = !planDone[key];
+  const key = courseId + '_' + pi + '_' + di;
+  const wasUndone = !planDone[key];
+  planDone[key] = wasUndone;
   localStorage.setItem('lc_done', JSON.stringify(planDone));
-  refreshPlanStats(currentCourse);
+  // Refresh the plan calendar and stats
+  if (currentCourse) refreshPlanStats(currentCourse);
+  // Record activity and show streak toast when checking off
+  if (wasUndone) {
+    recordActivity();
+    const streak = getStreak();
+    if (streak > 0) showToast('\uD83D\uDD25 ' + streak + ' day streak! Keep going!', 'success');
+    // Refresh course grid progress badges
+    renderGrid(COURSES);
+  }
 }
 
 function resetPlan(courseId) {
@@ -3206,14 +3289,62 @@ function signOutApp() {
 }
 
 // ══════════════════════════════════════════════
-//  SURPRISE ME
+//  SURPRISE ME — with personalised reasons
 // ══════════════════════════════════════════════
+let surprisePick = null;
+
+const SURPRISE_REASONS = {
+  da:  { why: 'Data Analytics is the <strong>most in-demand entry-level skill</strong> in tech right now. With just Excel, SQL and Python you can land your first analyst role.', pitch: 'Perfect if you love working with numbers and turning messy data into clear decisions.' },
+  genai: { why: '<strong>Generative AI is the fastest-growing field</strong> in tech history. Companies are hiring AI engineers at 3x the rate of any other role in 2025.', pitch: 'If you want to build the future of software, this is where to start.' },
+  de:  { why: 'Data Engineers are the <strong>highest-paid data professionals</strong> on average. Every company that has data needs engineers to move and transform it.', pitch: 'Perfect if you enjoy building robust systems and solving infrastructure challenges.' },
+  webdev: { why: 'Web development has <strong>the largest number of open jobs</strong> globally. You can go from zero to a deployed app in weeks.', pitch: 'Great if you want to see your work live on the internet fast.' },
+  ml:  { why: 'Machine Learning engineers are among the <strong>most sought-after professionals</strong> in tech. Every product from Netflix to Swiggy runs on ML.', pitch: 'If you love maths and want to build intelligent systems, this is your path.' },
+  cloud: { why: 'Cloud computing skills come with a <strong>salary premium of 20-30%</strong>. AWS alone has over 200,000 open roles globally.', pitch: 'Perfect if you want a structured path to certification and enterprise roles.' },
+  cyber: { why: 'There are <strong>3.5 million unfilled cybersecurity jobs</strong> worldwide. Companies desperately need people who can protect their systems.', pitch: 'If you enjoy thinking like an attacker and solving puzzles, security is for you.' },
+  devops: { why: 'DevOps engineers are the <strong>glue that keeps modern tech companies running</strong>. CI/CD and Kubernetes skills are listed in 1 in 3 senior job descriptions.', pitch: 'Great if you love automation, reliability, and working across the whole stack.' },
+  uiux: { why: 'Good designers are rare. A strong <strong>UI/UX portfolio gets noticed immediately</strong> and design roles at top companies pay extremely well.', pitch: 'If you have an eye for aesthetics and empathy for users, this is your calling.' },
+  ai:  { why: 'AI Engineers who understand the full stack from search algorithms to deep learning are <strong>irreplaceable in any AI-powered company</strong>.', pitch: 'The broadest and most intellectually satisfying path in tech.' },
+  ds:  { why: 'Data Scientists who can run A/B tests, build forecasts and tell stories with data are <strong>valued in every industry</strong> from fintech to healthcare.', pitch: 'Perfect if you love statistics, experiments and influencing business decisions.' },
+  python: { why: 'Python is the <strong>#1 most popular programming language</strong> in the world. It is the entry point to data science, AI, automation and backend development.', pitch: 'The best first programming language — clean, readable, and used everywhere.' },
+};
+
 function showRandomCourse() {
   const unexplored = COURSES.filter(c => getCourseProgress(c) === 0);
   const pool = unexplored.length > 0 ? unexplored : COURSES;
-  const pick = pool[Math.floor(Math.random() * pool.length)];
-  openCourse(pick.id);
-  showToast('Opening ' + pick.title + ' for you!', 'info');
+  surprisePick = pool[Math.floor(Math.random() * pool.length)];
+  renderSurpriseModal();
+  document.getElementById('surpriseOverlay').classList.add('open');
+}
+
+function rerollSurprise() {
+  const unexplored = COURSES.filter(c => getCourseProgress(c) === 0 && c !== surprisePick);
+  const pool = unexplored.length > 0 ? unexplored : COURSES.filter(c => c !== surprisePick);
+  surprisePick = pool[Math.floor(Math.random() * pool.length)];
+  renderSurpriseModal();
+}
+
+function renderSurpriseModal() {
+  const c = surprisePick;
+  const reason = SURPRISE_REASONS[c.id] || { why: 'This is a great course to expand your skills.', pitch: '' };
+  document.getElementById('surpriseIcon').textContent = c.icon;
+  document.getElementById('surpriseTitle').textContent = c.title;
+  document.getElementById('surpriseReason').innerHTML =
+    '<div style="margin-bottom:10px">' + reason.why + '</div>' +
+    '<div style="font-size:13px;color:var(--muted);font-style:italic">' + reason.pitch + '</div>';
+  document.getElementById('surpriseTags').innerHTML =
+    '<span class="surprise-tag">⚡ ' + c.difficulty + '</span>' +
+    '<span class="surprise-tag">⏱ ' + c.duration + '</span>' +
+    (c.hot ? '<span class="surprise-tag" style="background:rgba(239,68,68,.15);color:#fca5a5;border-color:rgba(239,68,68,.2)">🔥 Trending</span>' : '') +
+    (getCourseProgress(c) > 0 ? '<span class="surprise-tag" style="background:rgba(16,185,129,.15);color:#6ee7b7;border-color:rgba(16,185,129,.2)">' + getCourseProgress(c) + '% done</span>' : '');
+}
+
+function goSurprise() {
+  closeSurprise();
+  if (surprisePick) openCourse(surprisePick.id);
+}
+
+function closeSurprise() {
+  document.getElementById('surpriseOverlay').classList.remove('open');
 }
 
 // ══════════════════════════════════════════════
@@ -3245,17 +3376,54 @@ function initSessionHeader() {
   } catch(e) {}
 }
 
-// record activity when a study day is checked
-const _origToggleDay = toggleDay;
-function toggleDay(courseId, pi, di) {
-  _origToggleDay(courseId, pi, di);
-  const key = courseId + '_' + pi + '_' + di;
-  if (planDone[key]) {
-    recordActivity();
-    const streak = getStreak();
-    if (streak > 0) showToast('🔥 ' + streak + ' day streak!', 'success');
-    renderGrid(COURSES); // refresh progress badges
+// toggleDay handles activity recording directly (see below)
+
+// ── CHANGE PASSWORD ───────────────────────────
+function cpStrength(val) {
+  const fill = document.getElementById('cpStrengthFill');
+  if (!fill) return;
+  let score = 0;
+  if (val.length >= 8) score++;
+  if (/[A-Z]/.test(val)) score++;
+  if (/[0-9]/.test(val)) score++;
+  if (/[^A-Za-z0-9]/.test(val)) score++;
+  const colors = ['transparent','#ef4444','#f59e0b','#06b6d4','#10b981'];
+  const widths = ['0%','25%','50%','75%','100%'];
+  fill.style.width = widths[score];
+  fill.style.background = colors[score];
+}
+
+function changePassword() {
+  const current = document.getElementById('cpCurrent').value;
+  const newP    = document.getElementById('cpNew').value;
+  const confirm = document.getElementById('cpConfirm').value;
+  const msg     = document.getElementById('cpMsg');
+  msg.style.display = 'none';
+
+  const sess = JSON.parse(localStorage.getItem('lc_session') || '{}');
+  const users = JSON.parse(localStorage.getItem('lc_users') || '{}');
+  const user = users[sess.email];
+
+  function showCpMsg(text, color) {
+    msg.textContent = text; msg.style.color = color; msg.style.display = 'block';
   }
+
+  if (!user) { showCpMsg('Session error. Please sign in again.', '#f87171'); return; }
+  if (!current) { showCpMsg('Please enter your current password.', '#f87171'); return; }
+  if (user.pass !== btoa(current)) { showCpMsg('Current password is incorrect.', '#f87171'); return; }
+  if (newP.length < 8) { showCpMsg('New password must be at least 8 characters.', '#f87171'); return; }
+  if (newP !== confirm) { showCpMsg('New passwords do not match.', '#f87171'); return; }
+
+  user.pass = btoa(newP);
+  users[sess.email] = user;
+  localStorage.setItem('lc_users', JSON.stringify(users));
+  document.getElementById('cpCurrent').value = '';
+  document.getElementById('cpNew').value = '';
+  document.getElementById('cpConfirm').value = '';
+  document.getElementById('cpStrengthFill').style.width = '0%';
+  showCpMsg('\u2713 Password changed successfully!', '#6ee7b7');
+  showToast('Password updated!', 'success');
+  setTimeout(() => { msg.style.display = 'none'; }, 3000);
 }
 
 // ── BOOT ──────────────────────────────────────
