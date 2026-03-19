@@ -158,7 +158,7 @@ nav{
 .step-desc{font-size:13px;color:var(--muted);line-height:1.6;}
 
 /* ── COURSES PREVIEW ── */
-.courses-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;}
+.courses-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:48px;}
 .cp-card{
   background:var(--card);border:1px solid var(--border);border-radius:16px;
   padding:22px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;
@@ -574,7 +574,7 @@ footer{
   <!-- COURSES PREVIEW -->
   <section class="section" id="courses">
     <div class="section-tag">What you can learn</div>
-    <h2 class="section-title">9 career-ready courses.<br><span class="accent-g">All completely mapped.</span></h2>
+    <h2 class="section-title">12 career-ready courses.<br><span class="accent-g">All completely mapped.</span></h2>
     <p class="section-sub">Each course has a full roadmap, syllabus, resources, study plan, projects and interview prep. Sign in to unlock everything.</p>
     <div class="courses-preview">
       <div class="cp-card" onclick="showAuth('signup')" style="--card-accent:rgba(6,182,212,.1)">
@@ -623,6 +623,54 @@ footer{
         <div class="cp-title">Cloud Computing</div>
         <div class="cp-desc">AWS, GCP, Azure, Kubernetes, Terraform — build and certify in the cloud.</div>
         <div class="cp-badge" style="background:rgba(245,158,11,.15);color:#fcd34d;">Intermediate</div>
+        <div class="cp-lock">🔒</div>
+      </div>
+      <div class="cp-card" onclick="showAuth('signup')">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ef4444,#fca5a5);border-radius:16px 16px 0 0;"></div>
+        <div class="cp-icon">🔐</div>
+        <div class="cp-title">Cybersecurity</div>
+        <div class="cp-desc">Ethical hacking, pen testing, SIEM, CEH/OSCP — defend and attack systems.</div>
+        <div class="cp-badge" style="background:rgba(239,68,68,.15);color:#fca5a5;">🔥 Trending</div>
+        <div class="cp-lock">🔒</div>
+      </div>
+      <div class="cp-card" onclick="showAuth('signup')">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#10b981,#6ee7b7);border-radius:16px 16px 0 0;"></div>
+        <div class="cp-icon">⚡</div>
+        <div class="cp-title">DevOps &amp; SRE</div>
+        <div class="cp-desc">Docker, Kubernetes, Terraform, CI/CD, Prometheus — ship and scale reliably.</div>
+        <div class="cp-badge" style="background:rgba(239,68,68,.15);color:#fca5a5;">🔥 Trending</div>
+        <div class="cp-lock">🔒</div>
+      </div>
+      <div class="cp-card" onclick="showAuth('signup')">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ec4899,#f9a8d4);border-radius:16px 16px 0 0;"></div>
+        <div class="cp-icon">🎨</div>
+        <div class="cp-title">UI/UX Design</div>
+        <div class="cp-desc">Figma, user research, prototyping, design systems — build beautiful products.</div>
+        <div class="cp-badge" style="background:rgba(16,185,129,.15);color:#6ee7b7;">Beginner Friendly</div>
+        <div class="cp-lock">🔒</div>
+      </div>
+      <div class="cp-card" onclick="showAuth('signup')">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:16px 16px 0 0;"></div>
+        <div class="cp-icon">🤖</div>
+        <div class="cp-title">Artificial Intelligence</div>
+        <div class="cp-desc">Search algorithms, NLP, computer vision, deep learning, AI ethics.</div>
+        <div class="cp-badge" style="background:rgba(239,68,68,.15);color:#fca5a5;">🔥 Trending</div>
+        <div class="cp-lock">🔒</div>
+      </div>
+      <div class="cp-card" onclick="showAuth('signup')">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#06b6d4,#67e8f9);border-radius:16px 16px 0 0;"></div>
+        <div class="cp-icon">🔬</div>
+        <div class="cp-title">Data Science</div>
+        <div class="cp-desc">Statistics, Python, ML pipelines, A/B testing, storytelling with data.</div>
+        <div class="cp-badge" style="background:rgba(239,68,68,.15);color:#fca5a5;">🔥 Trending</div>
+        <div class="cp-lock">🔒</div>
+      </div>
+      <div class="cp-card" onclick="showAuth('signup')">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f59e0b,#fcd34d);border-radius:16px 16px 0 0;"></div>
+        <div class="cp-icon">🐍</div>
+        <div class="cp-title">Python Programming</div>
+        <div class="cp-desc">Python from basics to advanced — OOP, automation, APIs, data and testing.</div>
+        <div class="cp-badge" style="background:rgba(16,185,129,.15);color:#6ee7b7;">Beginner Friendly</div>
         <div class="cp-lock">🔒</div>
       </div>
     </div>
